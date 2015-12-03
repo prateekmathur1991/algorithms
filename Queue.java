@@ -1,42 +1,61 @@
 // Prateek Mathur
 
-// Java program to implement a Queue
+// Java implementation of a queue
+//
+// Conditions for queue overflow and underflow
+// Overflow: (rear + 1) MOD size == front
+// Underflow: rear == front
 
-public class Queue	{
-	public int [] queue;
+import java.util.Arrays;
+
+class Queue	{
+	public int [] arr;
+	
+	// capacity represents the last index at which element can be enqueued.
+	// So for a queue of at-most 5 elements, capacity would be 4, and size
+	// would be 5
+	public int capacity;
 	public int front;
 	public int rear;
 
-	Queue(int size)	{
-		queue = new int[size];
-		front = rear = 0;
+	Queue(int size) {
+		this.arr = new int[size];
+		this.capacity = size - 1;
+		this.front = this.rear = 0; 
 	}
 
-	public void enqueue(int num) {
-		if (rear == queue.length - 1) {
-			System.err.println("QUEUE FULL");
+	public void enqueue(int num)	{
+		if (rear + 1 % (capacity + 1) == front) {
+			System.err.println("QUEUE OVERFLOW");
 			return;
 		}
 
-		queue[rear] = num;
-		rear++;
+		arr[rear] = num;
+		if (rear == capacity) {
+			rear = 0;
+		} else {
+			rear++;
+		}		
 	}
 
 	public int dequeue()	{
-		if (front == rear) {
-			System.out.println("QUEUE EMPTY");
-			return -1;
+		if (rear == front) {
+			System.err.println("QUEUE UNDERFLOW");
+			return Integer.MIN_VALUE;
 		}
 
-		int num = queue[front];
-		front++;
+		int num = arr[front];
+		if (front == capacity) {
+			front = 0;
+		} else {
+			front++;
+		}
+		
 		return num;
 	}
 
-	public void printQueue() {
-		int i = front;
-		while (i++ != rear)	{
-			System.out.print(queue[i] + ", ");
-		}		
-	}	
+	@Override
+	public String toString()	{
+		return Arrays.toString(this.arr);
+	}
 }

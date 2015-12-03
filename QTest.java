@@ -1,20 +1,22 @@
 // Prateek Mathur
 
-// Java program to test a Queue
+// Java program to test a queue
 
 import java.util.Arrays;
 
 public class QTest	{
 	public static void main(String [] args)	{
-		int [] nums = {10, 15, 14, 12, 4, 17, 22};
+		int [] nums = {18, 2, 15, 12, 7, 20};
 		System.out.println(Arrays.toString(nums));
+
 		Queue queue = new Queue(nums.length);
 
+		System.out.println(queue);
+		
 		for (int num : nums) {
 			queue.enqueue(num);
 		}
 
-		queue.printQueue();
-		System.out.println();	
+		System.out.println(queue);
 	}
 }

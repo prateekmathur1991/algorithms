@@ -81,7 +81,7 @@ public class LinkedList	{
 	}
 
 	public void insertAfter(int key)	{
-		
+		Node getNode = search(key);		
 	}
 
 	public void insertBefore(int key)	{
@@ -90,5 +90,20 @@ public class LinkedList	{
 
 	public void delete(int key)	{
 
+	}
+
+	public void printList()	{
+		if (null == start) {
+			System.err.println("LIST EMPTY");
+			return;
+		}
+
+		Node current = start;
+		while (null != current.next)	{
+			System.out.print(Integer.toString(current.num) + "--->");
+			current = current.next;
+		}
+		
+		System.out.println("END");
 	}
 }

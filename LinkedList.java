@@ -65,7 +65,7 @@ public class LinkedList	{
 
 	private Node searchNode(int key)	{
 		if (null == start) {
-			return new Node(-1);
+			return new Node(Integer.MIN_VALUE);
 		}
 
 		Node current = start;
@@ -77,15 +77,35 @@ public class LinkedList	{
 			current = current.next;
 		}
 
-		return new Node(-1);
+		return new Node(Integer.MIN_VALUE);
 	}
 
-	public void insertAfter(int key)	{
-		Node getNode = search(key);		
+	public void insertAfter(int value, int key)	{
+		Node getNode = search(value);
+		if (getNode.num == Integer.MIN_VALUE) {
+			return;
+		}
+
+		Node node = new Node(key);
+		
+		Node temp = getNode.next;
+		getNode.next = node;
+		node.next = temp;
 	}
 
-	public void insertBefore(int key)	{
+	public void insertBefore(int value, int key)	{
+		Node getNode = search(value);
+		if (getNode.num == Integer.MIN_VALUE) {
+			return;
+		}
 
+		Node node = new Node(key);
+		Node current = start;
+		while (null != current.next || current.num != value) {
+			current = current.next;
+		}
+		
+			
 	}
 
 	public void delete(int key)	{

@@ -2,12 +2,6 @@
 
 // Java implementation of a Singly Linked List
 
-// TODO
-// Operations to be supported
-// 1. Insert Before Node
-// 2. Insert After Node
-// 3. Delete Node
-
 public class LinkedList	{
 	// Inner class to represent a node
 	class Node	{
@@ -60,7 +54,7 @@ public class LinkedList	{
 
 	public String search(int key)	{
 		Node getNode = searchNode(key);
-		return getNode.toString();
+		return getNode.num == Integer.MIN_VALUE ? "NOT FOUND" : getNode.toString();
 	}
 
 	private Node searchNode(int key)	{
@@ -69,7 +63,7 @@ public class LinkedList	{
 		}
 
 		Node current = start;
-		while (null != current.next)	{
+		while (null != current)	{
 			if (key == current.num) {
 				return current;
 			}
@@ -81,7 +75,7 @@ public class LinkedList	{
 	}
 
 	public void insertAfter(int value, int key)	{
-		Node getNode = search(value);
+		Node getNode = searchNode(value);
 		if (getNode.num == Integer.MIN_VALUE) {
 			return;
 		}
@@ -94,22 +88,58 @@ public class LinkedList	{
 	}
 
 	public void insertBefore(int value, int key)	{
-		Node getNode = search(value);
-		if (getNode.num == Integer.MIN_VALUE) {
-			return;
+		this.start = insertRecordBefore(value, key);
+	}
+
+	private Node insertRecordBefore(int value, int key)	{
+		Node node = new Node(key);
+
+		if (value == this.start.num)	{
+			Node temp = this.start;
+			this.start = node;
+			node.next = temp;
+		} else	{
+			Node current = start;
+			Node prev = null;
+
+			while (null != current.next && current.num != value)	{
+				prev = current;
+				current = current.next;
+			}
+		
+			if (current.num == value)	{
+				prev.next = node;
+				node.next = current;
+			}
 		}
 
-		Node node = new Node(key);
-		Node current = start;
-		while (null != current.next || current.num != value) {
-			current = current.next;
-		}
-		
-			
+		return this.start;		
 	}
 
 	public void delete(int key)	{
+		this.start = deleteRecord(key);	
+	}
 
+	private Node deleteRecord(int key)	{
+		if (key == this.start.num)	{
+			start = start.next;
+		} else {
+			Node current = start;
+			Node prev = null;
+		
+			while (null != current.next && current.num != key)	{
+				prev = current;
+				current = current.next;
+			}
+
+			
+			if (current.num == key)	{
+				prev.next = current.next;
+				current = null;
+			}
+		}
+
+		return this.start;
 	}
 
 	public void printList()	{
@@ -119,7 +149,7 @@ public class LinkedList	{
 		}
 
 		Node current = start;
-		while (null != current.next)	{
+		while (null != current)	{
 			System.out.print(Integer.toString(current.num) + "--->");
 			current = current.next;
 		}

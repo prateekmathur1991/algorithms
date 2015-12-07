@@ -75,6 +75,11 @@ public class LinkedList	{
 	}
 
 	public void insertAfter(int value, int key)	{
+		if (null == start)	{
+			System.err.println("LIST EMPTY");
+			return;
+		}		
+
 		Node getNode = searchNode(value);
 		if (getNode.num == Integer.MIN_VALUE) {
 			return;
@@ -88,6 +93,11 @@ public class LinkedList	{
 	}
 
 	public void insertBefore(int value, int key)	{
+		if (null == start)	{
+			System.err.println("LIST EMPTY");
+			return;
+		}		
+
 		this.start = insertRecordBefore(value, key);
 	}
 
@@ -116,7 +126,12 @@ public class LinkedList	{
 		return this.start;		
 	}
 
-	public void delete(int key)	{
+	public void delete(int key)	{		
+		if (null == start)	{
+			System.err.println("LIST EMPTY");
+			return;
+		}
+		
 		this.start = deleteRecord(key);	
 	}
 

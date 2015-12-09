@@ -7,3 +7,6 @@ Here is a list of incomplete/pending algorithms & data structures I need to impl
 -> Queue & Priority Queues
 -> Heaps (Min Heaps & Max Heaps)
 -> Red Black Tree
+-> Graph Implementation
+-> Graph Traversals
+-> Topological Sort

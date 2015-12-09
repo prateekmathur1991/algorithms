@@ -13,5 +13,12 @@ public class GTest	{
 		graph.addEdge("A", "B");
 		graph.addEdge("A", "C");
 		graph.addEdge("E", "G");
+
+		System.out.println(graph.hasEdge("A", "B"));
+		System.out.println(graph.hasEdge("A", "C"));
+		System.out.println(graph.hasEdge("A", "H"));
+		System.out.println(graph.hasEdge("A", "G"));
+
+		graph.printAdjList();
 	}
 }

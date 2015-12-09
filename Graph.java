@@ -3,7 +3,6 @@
 // An undirected graph implementation using Adjacency List representation
 // TODO
 // Following methods need to be added-
-// hasEdge()
 // printAdjList()
 // printBFS()
 // printDFS()
@@ -68,5 +67,42 @@ public class Graph	{
 		
 		adjList.get(vf).add(vt);
 		adjList.get(vt).add(vf);
+	}
+
+	public boolean hasEdge(String from, String to)	{
+		if (!allVertices.containsKey(from) || !allVertices.containsKey(to))	{
+			return false;
+		}
+
+		Vertex vf = allVertices.get(from);
+		Vertex vt = allVertices.get(to);
+
+		return adjList.get(vf).contains(vt);
+	}
+
+	public void printAdjList()	{
+		if (allVertices.size() == 0)	{
+			System.err.println("NO VERTICES");
+			return;
+		}
+
+		Iterator itr = allVertices.entrySet().iterator();
+
+		while (itr.hasNext())	{
+			Map.Entry pair = (Map.Entry) itr.next();
+			System.out.print(pair.getKey() + "-->");
+			HashSet<Vertex> list = adjList.get(pair.getValue());
+			if (list.size() == 0)	{
+				continue;
+			}
+
+			Iterator itr1 = list.iterator();
+			while (itr1.hasNext())	{
+				Vertex v = (Vertex) itr1.next();
+				System.out.print(v.name + "-->");
+			}
+
+			System.out.println();
+		}	
 	}
 }

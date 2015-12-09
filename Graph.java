@@ -3,7 +3,6 @@
 // An undirected graph implementation using Adjacency List representation
 // TODO
 // Following methods need to be added-
-// printAdjList()
 // printBFS()
 // printDFS()
 // topoligialSort()
@@ -38,6 +37,7 @@ public class Graph	{
 			v = new Vertex(name);
 			allVertices.put(name, v);
 			adjList.put(v, new HashSet<Vertex>());
+			vertices++;
 		}
 	}
 
@@ -46,12 +46,17 @@ public class Graph	{
 	}
 
 	public void addEdge(String from, String to)	{
+		if (hasEdge(from, to)) {
+			return;
+		}
+
 		Vertex vf = null, vt = null;
 
 		if (!allVertices.containsKey(from))	{
 			vf = new Vertex(from);
 			allVertices.put(from, vf);
 			adjList.put(vf, new HashSet<Vertex>());
+			vertices++;
 		} else {
 			vf = allVertices.get(from);
 		}
@@ -60,6 +65,7 @@ public class Graph	{
 			vt = new Vertex(to);
 			allVertices.put(to, vt);
 			adjList.put(vt, new HashSet<Vertex>());
+			vertices++;
 		} else {
 			vt = allVertices.get(to);
 		}
@@ -67,6 +73,7 @@ public class Graph	{
 		
 		adjList.get(vf).add(vt);
 		adjList.get(vt).add(vf);
+		edges++;
 	}
 
 	public boolean hasEdge(String from, String to)	{
@@ -77,7 +84,7 @@ public class Graph	{
 		Vertex vf = allVertices.get(from);
 		Vertex vt = allVertices.get(to);
 
-		return adjList.get(vf).contains(vt);
+		return adjList.get(allVertices.get(from)).contains(allVertices.get(to));
 	}
 
 	public void printAdjList()	{
@@ -101,7 +108,7 @@ public class Graph	{
 				Vertex v = (Vertex) itr1.next();
 				System.out.print(v.name + "-->");
 			}
-
+			System.out.print("END");
 			System.out.println();
 		}	
 	}

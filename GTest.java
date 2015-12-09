@@ -20,5 +20,7 @@ public class GTest	{
 		System.out.println(graph.hasEdge("A", "G"));
 
 		graph.printAdjList();
+
+		System.out.println(graph.vertices + " " + graph.edges);
 	}
 }

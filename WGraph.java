@@ -1,15 +1,10 @@
 // Prateek Mathur
 
-// An undirected graph implementation using Adjacency List representation
-// TODO
-// Following methods need to be added-
-// printBFS()
-// printDFS()
-// topoligialSort()
+// An undirected weighted graph implementation using Adjacency List representation
 
 import java.util.*;
 
-public class Graph	{
+public class WGraph	{
 	// Inner class to represent a Vertex
 	class Vertex	{
 		public String name;
@@ -19,13 +14,13 @@ public class Graph	{
 		}
 	}
 
-	Map<Vertex, HashSet<Vertex>> adjList;
+	Map<Vertex, HashMap<Vertex, Integer>> adjList;
 	Map<String, Vertex> allVertices;
 	int vertices;
 	int edges;
 	
-	Graph()	{
-		adjList = new HashMap<Vertex, HashSet<Vertex>>();
+	WGraph()	{
+		adjList = new HashMap<Vertex, HashMap<Vertex, Integer>>();
 		allVertices = new HashMap<String, Vertex>();
 		vertices = 0;
 		edges = 0;
@@ -36,7 +31,7 @@ public class Graph	{
 		if ((v = allVertices.get(name)) == null) {
 			v = new Vertex(name);
 			allVertices.put(name, v);
-			adjList.put(v, new HashSet<Vertex>());
+			adjList.put(v, new HashMap<Vertex, Integer>());
 			vertices++;
 		}
 	}
@@ -45,7 +40,7 @@ public class Graph	{
 		return allVertices.containsKey(name);
 	}
 
-	public void addEdge(String from, String to)	{
+	public void addEdge(String from, String to, int weight)	{
 		if (hasEdge(from, to)) {
 			return;
 		}
@@ -55,24 +50,23 @@ public class Graph	{
 		if (!allVertices.containsKey(from))	{
 			vf = new Vertex(from);
 			allVertices.put(from, vf);
-			adjList.put(vf, new HashSet<Vertex>());
+			adjList.put(vf, new HashMap<Vertex, Integer>());
 			vertices++;
 		} else {
 			vf = allVertices.get(from);
 		}
 	
-		if (!allVertices.containsKey(to))	{	
+		if (!allVertices.containsKey(to))	{
 			vt = new Vertex(to);
 			allVertices.put(to, vt);
-			adjList.put(vt, new HashSet<Vertex>());
+			adjList.put(vt, new HashMap<Vertex, Integer>());
 			vertices++;
 		} else {
 			vt = allVertices.get(to);
 		}
 
-		
-		adjList.get(vf).add(vt);
-		adjList.get(vt).add(vf);
+		adjList.get(vf).put(vt, weight);
+		adjList.get(vt).put(vf, weight);
 		edges++;
 	}
 
@@ -81,10 +75,7 @@ public class Graph	{
 			return false;
 		}
 
-		Vertex vf = allVertices.get(from);
-		Vertex vt = allVertices.get(to);
-
-		return adjList.get(allVertices.get(from)).contains(allVertices.get(to));
+		return adjList.get(allVertices.get(from)).containsKey(allVertices.get(to));
 	}
 
 	public void printAdjList()	{
@@ -98,18 +89,19 @@ public class Graph	{
 		while (itr.hasNext())	{
 			Map.Entry pair = (Map.Entry) itr.next();
 			System.out.print(pair.getKey() + "-->");
-			
-			HashSet<Vertex> list = adjList.get(pair.getValue());
+
+			HashMap<Vertex, Integer> list = adjList.get(pair.getValue());
 			if (list.size() == 0)	{
 				System.out.println("END");
 				continue;
-			}	
-
-			Iterator itr1 = list.iterator();
-			while (itr1.hasNext())	{
-				Vertex v = (Vertex) itr1.next();
-				System.out.print(v.name + "-->");
 			}
+			Iterator itr1 = list.entrySet().iterator();
+			while (itr1.hasNext())	{
+				Map.Entry pair1 = (Map.Entry) itr1.next();
+				Vertex v = (Vertex) pair1.getKey();
+				System.out.print(v.name + "(" + pair1.getValue() + ")" + "-->");
+			}
+
 			System.out.print("END");
 			System.out.println();
 		}	

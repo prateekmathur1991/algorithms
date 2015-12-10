@@ -9,6 +9,7 @@ public class GTest	{
 		graph.addVertex("A");
 		graph.addVertex("B");
 		graph.addVertex("C");
+		graph.addVertex("D");
 
 		graph.addEdge("A", "B");
 		graph.addEdge("A", "C");

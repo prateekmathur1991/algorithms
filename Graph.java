@@ -13,9 +13,17 @@ public class Graph	{
 	// Inner class to represent a Vertex
 	class Vertex	{
 		public String name;
+		
+		// Required for BFS and DFS
+		public String color;
+		public int distance;
+		public Vertex parent;
 
 		Vertex(String name)	{
 			this.name = name;
+			/* this.color = "w";
+			this.distance = 0;
+			this.parent = null; */
 		}
 	}
 
@@ -112,6 +120,33 @@ public class Graph	{
 			}
 			System.out.print("END");
 			System.out.println();
+		}	
+	}
+
+	public void printBFS(String r)	{
+		List<Vertex> queue = new LinkedList<Vertex>();
+		Vertex root = null;
+		
+		Iterator itr = allVertices.entrySet().iterator();
+		while (itr.hasNext())	{
+			Map.Entry entry = (Map.Entry) itr.next();
+			if (entry.getKey().equals(r)) {
+				root = entry.getValue();
+				continue;
+			}
+
+			Vertex u = entry.getValue();
+			u.color = "w";
+			u.distance = Integer.MAX_VALUE;
+			u.parent = null;
+		}
+
+		root.color = "g";
+		root.distance = 0;
+		root.parent = null;
+
+		while (queue.size() != 0)	{
+			u = queue.getFirst();
 		}	
 	}
 }

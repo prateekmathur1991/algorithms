@@ -124,18 +124,23 @@ public class Graph	{
 	}
 
 	public void printBFS(String r)	{
-		List<Vertex> queue = new LinkedList<Vertex>();
-		Vertex root = null;
+		if (!hasVertex(r))	{
+			System.err.println("ROOT NOT PRESENT IN TREE");
+			return;
+		}
+		
+		java.util.LinkedList<Vertex> queue = new java.util.LinkedList<Vertex>();
+		Vertex root = null, u= null;
 		
 		Iterator itr = allVertices.entrySet().iterator();
 		while (itr.hasNext())	{
 			Map.Entry entry = (Map.Entry) itr.next();
 			if (entry.getKey().equals(r)) {
-				root = entry.getValue();
+				root = (Vertex) entry.getValue();
 				continue;
 			}
 
-			Vertex u = entry.getValue();
+			u = (Vertex) entry.getValue();
 			u.color = "w";
 			u.distance = Integer.MAX_VALUE;
 			u.parent = null;
@@ -145,8 +150,24 @@ public class Graph	{
 		root.distance = 0;
 		root.parent = null;
 
+		queue.add(root);
+
 		while (queue.size() != 0)	{
-			u = queue.getFirst();
+			u = queue.poll();
+			HashSet<Vertex> list = adjList.get(u);
+
+			Iterator itr1 = list.iterator();
+			while (itr1.hasNext())	{
+				Vertex v = (Vertex) itr1.next();
+				if ("w".equals(v.color))	{
+					v.color = "g";
+					v.distance = u.distance + 1;
+					v.parent = null;
+					queue.add(v);
+				}
+			}
+
+			u.color = "b";
 		}	
 	}
 }

@@ -31,10 +31,10 @@ public class GTest	{
 		System.out.println(graph.hasEdge("A", "H"));
 		System.out.println(graph.hasEdge("A", "G"));
 
-		graph.printAdjList();
-
 		System.out.println(graph.vertices + " " + graph.edges); */
 
+		graph.printAdjList();
 		graph.printBFS("r");
+		graph.printShortestPath("r", "x");
 	}
 }

@@ -177,4 +177,23 @@ public class Graph	{
 			System.out.println();
 		}	
 	}
+
+	public void printShortestPath(String source, String vertex)	{
+		if (!hasVertex(source) || !hasVertex(vertex))	{
+			System.err.println("Source or vertex not present in graph");
+			return;
+		}
+
+		Vertex s = allVertices.get(source);
+		Vertex v = allVertices.get(vertex);
+		
+		if (source.equals(vertex))	{
+			System.out.print(source + " ");
+		} else if (v.parent == null)	{
+			System.err.println("No path from source to vertex");
+		} else {
+			printShortestPath(source, v.parent.name);
+			System.out.print(v.name + " ");
+		}
+	}
 }

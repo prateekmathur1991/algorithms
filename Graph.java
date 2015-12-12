@@ -19,6 +19,10 @@ public class Graph	{
 		public int distance;
 		public Vertex parent;
 
+		// Required for DFS
+		public int discoveryTime;
+		public int finishTime;
+
 		Vertex(String name)	{
 			this.name = name;
 		}
@@ -33,6 +37,12 @@ public class Graph	{
 	Map<String, Vertex> allVertices;
 	int vertices;
 	int edges;
+
+	// Global variable for depth-first search
+	private int time;
+
+	// LinkedList of Vertices, for topological sort
+	java.util.LinkedList<Vertex> verticesList;
 	
 	Graph()	{
 		adjList = new HashMap<Vertex, HashSet<Vertex>>();
@@ -184,6 +194,8 @@ public class Graph	{
 			return;
 		}
 
+		this.printBFS(source);
+
 		Vertex s = allVertices.get(source);
 		Vertex v = allVertices.get(vertex);
 		
@@ -195,5 +207,69 @@ public class Graph	{
 			printShortestPath(source, v.parent.name);
 			System.out.print(v.name + " ");
 		}
+	}
+	
+	public void printDFS()	{
+		DFS(false);
+	}
+
+	private void DFS(boolean topo)	{
+		if (topo) {
+			verticesList = new java.util.LinkedList<Vertex>();
+		}
+
+		Iterator itr = allVertices.entrySet().iterator();
+		while (itr.hasNext())	{
+			Map.Entry entry = (Map.Entry) itr.next();
+			Vertex u = (Vertex) entry.getValue();
+			u.color = "w";
+			u.parent = null;
+			u.discoveryTime = 0;
+			u.finishTime = 0;
+		}
+
+		this.time = 0;
+		
+		itr = allVertices.entrySet().iterator();
+		while (itr.hasNext())	{
+			Map.Entry entry = (Map.Entry) itr.next();
+			Vertex u = (Vertex) entry.getValue();
+			System.out.println("About to visit:: " + u.name);
+			dfsVisit(u, topo);
+		}
+	}
+
+	private void dfsVisit(Vertex u, boolean topo)	{
+		time++;
+		u.discoveryTime = time;
+		u.color = "g";
+
+		HashSet<Vertex> list = adjList.get(u);
+		Iterator itr = list.iterator();
+		System.out.println("Visiting adjacency list for " + u.name);
+
+		while (itr.hasNext())	{
+			Vertex v = (Vertex) itr.next();
+			if (v.color.equals("w"))	{
+				System.out.println("White node found. About to visit recursively " + v.name);
+				v.parent = u;
+				dfsVisit(v, topo);
+			}
+		}
+
+		u.color = "b";
+		time++;
+		u.finishTime = time;
+
+		System.out.println("Visit complete for " + u.name + " First Visit Time:: " + u.discoveryTime + " Last Visit Time:: " + u.finishTime);
+	
+		if (topo) {
+			verticesList.addFirst(u);
+		}
+	}
+
+	public void topologicalSort()	{
+		DFS(true);
+		System.out.println(Arrays.toString(verticesList.toArray(new Vertex[0])));
 	}
 }

@@ -21,9 +21,11 @@ public class Graph	{
 
 		Vertex(String name)	{
 			this.name = name;
-			/* this.color = "w";
-			this.distance = 0;
-			this.parent = null; */
+		}
+
+		@Override
+		public String toString() {
+			return this.name;
 		}
 	}
 
@@ -153,21 +155,26 @@ public class Graph	{
 		queue.add(root);
 
 		while (queue.size() != 0)	{
+			System.out.println("Queue right now:: " + Arrays.toString(queue.toArray(new Vertex[0])));
 			u = queue.poll();
 			HashSet<Vertex> list = adjList.get(u);
 
+			System.out.println("Getting and coloring Neighbours");
 			Iterator itr1 = list.iterator();
 			while (itr1.hasNext())	{
 				Vertex v = (Vertex) itr1.next();
 				if ("w".equals(v.color))	{
+					System.out.println("Got white neighbour " + v.name);
 					v.color = "g";
 					v.distance = u.distance + 1;
-					v.parent = null;
+					v.parent = u;
+					System.out.println("Processed neighbour. Name:: " + v.name + " Distance:: " + v.distance + " Parent:: " + u.name);
 					queue.add(v);
 				}
 			}
 
 			u.color = "b";
+			System.out.println();
 		}	
 	}
 }

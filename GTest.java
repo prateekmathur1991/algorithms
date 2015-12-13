@@ -35,10 +35,10 @@ public class GTest	{
 
 		graph.printAdjList();
 		graph.printBFS("r");
-		graph.printShortestPath("r", "x");
+		graph.printShortestPath("r", "x"); */
 
-		graph.printDFS(); */
+		graph.printDFS();
 
-		graph.topologicalSort();
+		// graph.topologicalSort();
 	}
 }

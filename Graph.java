@@ -1,11 +1,6 @@
 // Prateek Mathur
 
 // An undirected graph implementation using Adjacency List representation
-// TODO
-// Following methods need to be added-
-// printBFS()
-// printDFS()
-// topoligialSort()
 
 import java.util.*;
 
@@ -268,8 +263,8 @@ public class Graph	{
 		}
 	}
 
-	public void topologicalSort()	{
+	/* public void topologicalSort()	{
 		DFS(true);
 		System.out.println(Arrays.toString(verticesList.toArray(new Vertex[0])));
-	}
+	} */
 }

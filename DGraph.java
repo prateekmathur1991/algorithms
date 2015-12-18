@@ -262,8 +262,8 @@ public class DGraph	{
 		}
 	}
 
-	/* public void topologicalSort()	{
+	public void topologicalSort()	{
 		DFS(true);
 		System.out.println(Arrays.toString(verticesList.toArray(new Vertex[0])));
-	} */
+	}
 }

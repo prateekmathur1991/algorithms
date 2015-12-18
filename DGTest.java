@@ -31,14 +31,14 @@ public class DGTest	{
 		System.out.println(graph.hasEdge("A", "H"));
 		System.out.println(graph.hasEdge("A", "G"));
 
-		System.out.println(graph.vertices + " " + graph.edges); */
+		System.out.println(graph.vertices + " " + graph.edges);
 
 		graph.printAdjList();
-		/* graph.printBFS("r");
+		graph.printBFS("r");
 		graph.printShortestPath("r", "x");
 
-		graph.printDFS();
+		graph.printDFS(); */
 
-		graph.topologicalSort(); */
+		graph.topologicalSort();
 	}
 }

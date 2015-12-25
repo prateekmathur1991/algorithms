@@ -14,6 +14,7 @@ public class WGTest	{
 		wgraph.addEdge("A", "B", 2);
 		wgraph.addEdge("A", "C", 4);
 		wgraph.addEdge("E", "G", 3);
+		wgraph.addEdge("A", "G", 4);
 
 		System.out.println(wgraph.hasEdge("A", "B"));
 		System.out.println(wgraph.hasEdge("A", "C"));

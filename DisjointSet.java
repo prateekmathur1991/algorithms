@@ -10,54 +10,66 @@
 import java.util.*;
 
 public class DisjointSet<T>	{
-	Map<T, LinkedHashSet<T>> allSets;
+	Set<LinkedHashSet<T>> allSets;
 
 	DisjointSet()	{
-		allSets = new HashMap<T, LinkedHashSet<T>>();
+		allSets = new HashSet<LinkedHashSet<T>>();
 	}
 
 	public void makeSet(T t)	{
-		if (allSets.containsKey(t))	{
-			return;
+		Iterator itr = allSets.iterator();
+		while (itr.hasNext())	{
+			LinkedHashSet set = (LinkedHashSet) itr.next();
+			if (set.contains(t))	{
+				return;
+			}
 		}
 
 		LinkedHashSet<T> set = new LinkedHashSet<T>();
 		set.add(t);
 
-		allSets.put(t, set);
+		allSets.add(set);
 	}
 
 	public T findSet(T t)	{		
-		if (!allSets.containsKey(t))	{
-			return null;
+		Iterator itr = allSets.iterator();
+		while (itr.hasNext())	{
+			LinkedHashSet set = (LinkedHashSet) itr.next();
+			if (set.contains(t))	{
+				return (T) set.iterator().next();
+			}
 		}
 
-		return allSets.get(t).iterator().next();
+		return null;
 	}
 
 	public void union(T t1, T t2)	{
-		if (!allSets.containsKey(t1) || !allSets.containsKey(t2))	{
-			return;
+		LinkedHashSet<T> set1 = null, set2 = null;
+		
+		Iterator itr = allSets.iterator();
+		while (itr.hasNext())	{
+			LinkedHashSet set = (LinkedHashSet) itr.next();
+			if (set.contains(t1))	{
+				set1 = (LinkedHashSet<T>) set;
+			} else if (set.contains(t2))	{
+				set2 = (LinkedHashSet<T>) set;
+			}
 		}
 
-		LinkedHashSet<T> set1 = allSets.get(t1);
-		LinkedHashSet<T> set2 = allSets.get(t2);
+		if (null != set1)	{
+			LinkedHashSet<T> set = new LinkedHashSet<T>(set1);
+			set.addAll(set2);
 
-		set1.addAll(set2);
-		set2.clear();
+			allSets.add(set);
 
-		allSets.put(t1, set1);
-		allSets.remove(t2);
+			allSets.remove(set1);
+			if (null != set2)	{
+				allSets.remove(set2);
+			}
+		}
 	}
 
 	public void viewAllSets()	{
-		Iterator itr = allSets.entrySet().iterator();
-		
-		while (itr.hasNext())	{
-			Map.Entry entry = (Map.Entry) itr.next();
-			LinkedHashSet set = (LinkedHashSet) entry.getValue();
-
-			System.out.println(Arrays.toString(set.toArray()));
-		}
+		System.out.println(this.allSets);
 	}
 }

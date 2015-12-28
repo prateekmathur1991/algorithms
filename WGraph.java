@@ -41,14 +41,14 @@ public class WGraph	{
 		}	
 	}	
 
-	Map<Vertex, TreeMap<Integer, Vertex>> adjList;
+	Map<Vertex, HashMap<Vertex, Integer>> adjList;
 	Map<String, Vertex> allVertices;
 	Set<Edge> allEdges;
 	int vertices;
 	int edges;
 	
 	WGraph()	{
-		adjList = new HashMap<Vertex, TreeMap<Integer, Vertex>>();
+		adjList = new HashMap<Vertex, HashMap<Vertex, Integer>>();
 		allVertices = new HashMap<String, Vertex>();
 		allEdges = new HashSet<Edge>();
 		vertices = 0;
@@ -60,7 +60,7 @@ public class WGraph	{
 		if ((v = allVertices.get(name)) == null) {
 			v = new Vertex(name);
 			allVertices.put(name, v);
-			adjList.put(v, new TreeMap<Integer, Vertex>());
+			adjList.put(v, new HashMap<Vertex, Integer>());
 			vertices++;
 		}
 	}
@@ -79,7 +79,7 @@ public class WGraph	{
 		if (!allVertices.containsKey(from))	{
 			vf = new Vertex(from);
 			allVertices.put(from, vf);
-			adjList.put(vf, new TreeMap<Integer, Vertex>());
+			adjList.put(vf, new HashMap<Vertex, Integer>());
 			vertices++;
 		} else {
 			vf = allVertices.get(from);
@@ -88,14 +88,15 @@ public class WGraph	{
 		if (!allVertices.containsKey(to))	{	
 			vt = new Vertex(to);
 			allVertices.put(to, vt);
-			adjList.put(vt, new TreeMap<Integer, Vertex>());
+			adjList.put(vt, new HashMap<Vertex, Integer>());
+			adjList.put(vt, new HashMap<Vertex, Integer>());
 			vertices++;
 		} else {
 			vt = allVertices.get(to);
 		}
 
-		adjList.get(vf).put(weight, vt);
-		adjList.get(vt).put(weight, vf);
+		adjList.get(vf).put(vt, weight);
+		adjList.get(vt).put(vf, weight);
 
 		Edge edge1 = new Edge(from, to, weight);
 		Edge edge2 = new Edge(to, from, weight);
@@ -113,8 +114,6 @@ public class WGraph	{
 	}
 
 	public void printAdjList()	{
-		System.out.println(this.adjList);
-		System.out.println(this.allEdges);
 		if (allVertices.size() == 0)	{
 			System.err.println("NO VERTICES");
 			return;
@@ -126,16 +125,17 @@ public class WGraph	{
 			Map.Entry pair = (Map.Entry) itr.next();
 			System.out.print(pair.getKey() + "-->");
 
-			TreeMap<Integer, Vertex> list = adjList.get(pair.getValue());
+			HashMap<Vertex, Integer> list = adjList.get(pair.getValue());
 			if (list.size() == 0)	{
 				System.out.println("END");
 				continue;
 			}
+
 			Iterator itr1 = list.entrySet().iterator();
 			while (itr1.hasNext())	{
 				Map.Entry pair1 = (Map.Entry) itr1.next();
-				Vertex v = (Vertex) pair1.getValue();
-				System.out.print(v.name + "(" + pair1.getKey() + ")" + "-->");
+				Vertex v = (Vertex) pair1.getKey();
+				System.out.print(v.name + "(" + pair1.getValue() + ")" + "-->");
 			}
 
 			System.out.print("END");

@@ -38,7 +38,13 @@ public class WGraph	{
 		@Override
 		public String toString()	{
 			return this.from + "-(" + Integer.toString(this.weight) + ")->" + this.to;
-		}	
+		}
+
+		@Override
+		public boolean equals(Edge edge)	{
+			// return (() && () && () && ());
+			return true;
+		}		
 	}	
 
 	Map<Vertex, HashMap<Vertex, Integer>> adjList;
@@ -141,5 +147,24 @@ public class WGraph	{
 			System.out.print("END");
 			System.out.println();
 		}	
+	}
+
+	public void makeKruskalMST()	{
+		ArrayList<Edge> mstForest = new ArrayList<Edge>();
+		
+		DisjointSet<Vertex> dsets = new DisjointSet<Vertex>();
+		
+		Iterator itr = allVertices.entrySet().iterator();
+		while (itr.hasNext())	{
+			Map.Entry entry = (Map.Entry) itr.next();
+			dsets.makeSet((Vertex) entry.getValue());
+		}
+
+		Arrays.sort(this.allEdges.toArray(new Edge[0]));
+		System.out.println(this.allEdges);
+	}
+
+	public void makePrimMST()	{
+		
 	}
 }

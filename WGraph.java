@@ -6,7 +6,7 @@ import java.util.*;
 
 public class WGraph	{
 	// Inner class to represent a Vertex
-	class Vertex	{
+	private class Vertex	{
 		public String name;
 
 		Vertex(String name)	{
@@ -19,14 +19,38 @@ public class WGraph	{
 		}
 	}
 
+	private class Edge implements Comparable<Edge>	{
+		public String from;
+		public String to;
+		public int weight;
+
+		Edge(String from, String to, int weight)	{
+			this.from = from;
+			this.to = to;
+			this.weight = weight;
+		}
+
+		@Override
+		public int compareTo(Edge edge)	{
+			return this.weight == edge.weight ? 0 : (this.weight < edge.weight ? -1 : 1);
+		}
+
+		@Override
+		public String toString()	{
+			return this.from + "-(" + Integer.toString(this.weight) + ")->" + this.to;
+		}	
+	}	
+
 	Map<Vertex, TreeMap<Integer, Vertex>> adjList;
 	Map<String, Vertex> allVertices;
+	Set<Edge> allEdges;
 	int vertices;
 	int edges;
 	
 	WGraph()	{
 		adjList = new HashMap<Vertex, TreeMap<Integer, Vertex>>();
 		allVertices = new HashMap<String, Vertex>();
+		allEdges = new HashSet<Edge>();
 		vertices = 0;
 		edges = 0;
 	}
@@ -61,7 +85,7 @@ public class WGraph	{
 			vf = allVertices.get(from);
 		}
 	
-		if (!allVertices.containsKey(to))	{
+		if (!allVertices.containsKey(to))	{	
 			vt = new Vertex(to);
 			allVertices.put(to, vt);
 			adjList.put(vt, new TreeMap<Integer, Vertex>());
@@ -72,6 +96,11 @@ public class WGraph	{
 
 		adjList.get(vf).put(weight, vt);
 		adjList.get(vt).put(weight, vf);
+
+		Edge edge1 = new Edge(from, to, weight);
+		Edge edge2 = new Edge(to, from, weight);
+		allEdges.add(edge1);
+		allEdges.add(edge2);
 		edges++;
 	}
 
@@ -85,6 +114,7 @@ public class WGraph	{
 
 	public void printAdjList()	{
 		System.out.println(this.adjList);
+		System.out.println(this.allEdges);
 		if (allVertices.size() == 0)	{
 			System.err.println("NO VERTICES");
 			return;

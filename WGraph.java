@@ -169,25 +169,25 @@ public class WGraph	{
 
 		Collections.sort(this.allEdges);
 
-		System.out.println(allEdges);
-		dsets.viewAllSets();
+		// System.out.println(allEdges);
+		// dsets.viewAllSets();
 		
 		for (Edge edge : allEdges)	{
-			System.out.println("Current Edge:: " + edge);
-			System.out.println("MST Forest currently:: " + mstForest);
-			System.out.print("Set of vertices currently:: ");
-			dsets.viewAllSets();
+			// System.out.println("Current Edge:: " + edge);
+			// System.out.println("MST Forest currently:: " + mstForest);
+			// System.out.print("Set of vertices currently:: ");
+			// dsets.viewAllSets();
 
 			Vertex u = allVertices.get(edge.from);
 			Vertex v = allVertices.get(edge.to);
 			if (dsets.findSet(u) != dsets.findSet(v))	{
-				System.out.println("Different sets. Adding to MST Forest");
+				// System.out.println("Different sets. Adding to MST Forest");
 				mstForest.add(edge);
-				System.out.println("Performing union");
+				// System.out.println("Performing union");
 				dsets.union(u, v);	
 			}
 
-			System.out.println();
+			// System.out.println();
 		}
 
 		System.out.println(mstForest);

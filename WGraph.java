@@ -40,10 +40,8 @@ public class WGraph	{
 			return this.from + "-(" + Integer.toString(this.weight) + ")->" + this.to;
 		}
 
-		@Override
 		public boolean equals(Edge edge)	{
-			// return (() && () && () && ());
-			return true;
+			return this.weight == edge.weight;
 		}		
 	}	
 
@@ -56,7 +54,7 @@ public class WGraph	{
 	WGraph()	{
 		adjList = new HashMap<Vertex, HashMap<Vertex, Integer>>();
 		allVertices = new HashMap<String, Vertex>();
-		allEdges = new HashSet<Edge>();
+		allEdges = new TreeSet<Edge>();
 		vertices = 0;
 		edges = 0;
 	}
@@ -103,9 +101,10 @@ public class WGraph	{
 
 		adjList.get(vf).put(vt, weight);
 		adjList.get(vt).put(vf, weight);
-
+	
 		Edge edge1 = new Edge(from, to, weight);
 		Edge edge2 = new Edge(to, from, weight);
+
 		allEdges.add(edge1);
 		allEdges.add(edge2);
 		edges++;
@@ -116,7 +115,7 @@ public class WGraph	{
 			return false;
 		}
 
-		return adjList.get(allVertices.get(from)).containsValue(allVertices.get(to));
+		return adjList.get(allVertices.get(from)).containsKey(allVertices.get(to));
 	}
 
 	public void printAdjList()	{
@@ -160,7 +159,7 @@ public class WGraph	{
 			dsets.makeSet((Vertex) entry.getValue());
 		}
 
-		Arrays.sort(this.allEdges.toArray(new Edge[0]));
+		// Arrays.sort(this.allEdges.toArray(new Edge[0]));
 		System.out.println(this.allEdges);
 	}
 

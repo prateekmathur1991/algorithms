@@ -17,6 +17,10 @@ public class WGraph	{
 		public String toString()	{
 			return this.name;
 		}
+
+		public boolean equals(Vertex vertex)	{
+			return this.name.equalsIgnoreCase(vertex.name);
+		}
 	}
 
 	private class Edge implements Comparable<Edge>	{
@@ -37,7 +41,10 @@ public class WGraph	{
 
 		@Override
 		public String toString()	{
-			return this.from + "-(" + Integer.toString(this.weight) + ")->" + this.to;
+			StringBuilder builder = new StringBuilder();
+			
+			builder.append(this.from).append(" ---> ").append(this.to).append("(").append(Integer.toString(this.weight)).append(")");
+			return builder.toString();
 		}
 
 		public boolean equals(Edge edge)	{
@@ -47,14 +54,14 @@ public class WGraph	{
 
 	Map<Vertex, HashMap<Vertex, Integer>> adjList;
 	Map<String, Vertex> allVertices;
-	Set<Edge> allEdges;
+	List<Edge> allEdges;
 	int vertices;
 	int edges;
 	
 	WGraph()	{
 		adjList = new HashMap<Vertex, HashMap<Vertex, Integer>>();
 		allVertices = new HashMap<String, Vertex>();
-		allEdges = new TreeSet<Edge>();
+		allEdges = new ArrayList<Edge>();
 		vertices = 0;
 		edges = 0;
 	}
@@ -102,11 +109,11 @@ public class WGraph	{
 		adjList.get(vf).put(vt, weight);
 		adjList.get(vt).put(vf, weight);
 	
-		Edge edge1 = new Edge(from, to, weight);
-		Edge edge2 = new Edge(to, from, weight);
+		/* Edge edge1 = new Edge(from, to, weight);
+		Edge edge2 = new Edge(to, from, weight); */
 
-		allEdges.add(edge1);
-		allEdges.add(edge2);
+		allEdges.add(new Edge(from, to, weight));
+		allEdges.add(new Edge(to, from, weight));
 		edges++;
 	}
 
@@ -159,8 +166,30 @@ public class WGraph	{
 			dsets.makeSet((Vertex) entry.getValue());
 		}
 
-		// Arrays.sort(this.allEdges.toArray(new Edge[0]));
-		System.out.println(this.allEdges);
+		Collections.sort(this.allEdges);
+
+		System.out.println(allEdges);
+		dsets.viewAllSets();
+		
+		for (Edge edge : allEdges)	{
+			System.out.println("Current Edge:: " + edge);
+			System.out.println("MST Forest currently:: " + mstForest);
+			System.out.print("Set of vertices currently:: ");
+			dsets.viewAllSets();
+
+			Vertex u = allVertices.get(edge.from);
+			Vertex v = allVertices.get(edge.to);
+			if (dsets.findSet(u) != dsets.findSet(v))	{
+				System.out.println("Different sets. Adding to MST Forest");
+				mstForest.add(edge);
+				System.out.println("Performing union");
+				dsets.union(u, v);	
+			}
+
+			System.out.println();
+		}
+
+		System.out.println(mstForest);
 	}
 
 	public void makePrimMST()	{

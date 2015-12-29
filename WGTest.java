@@ -29,14 +29,14 @@ public class WGTest	{
 		wgraph.addEdge("C", "F", 4);
 		wgraph.addEdge("D", "F", 14);
 
-		System.out.println(wgraph.hasEdge("A", "B"));
+		/* System.out.println(wgraph.hasEdge("A", "B"));
 		System.out.println(wgraph.hasEdge("A", "C"));
 		System.out.println(wgraph.hasEdge("A", "H"));
 		System.out.println(wgraph.hasEdge("A", "G"));
 
 		wgraph.printAdjList();
 
-		System.out.println(wgraph.vertices + " " + wgraph.edges);
+		System.out.println(wgraph.vertices + " " + wgraph.edges); */
 
 		wgraph.makeKruskalMST();
 	}

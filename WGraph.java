@@ -8,6 +8,7 @@ public class WGraph	{
 	// Inner class to represent a Vertex
 	private class Vertex	{
 		public String name;
+		int key;
 
 		Vertex(String name)	{
 			this.name = name;
@@ -192,7 +193,12 @@ public class WGraph	{
 		System.out.println(mstForest);
 	}
 
-	public void makePrimMST()	{
-		
+	public void makePrimMST(String root)	{
+		if (!allVertices.containsKey(root))	{
+			System.err.println("ROOT NOT PRESENT");
+			return;
+		}
+
+		PriorityQueue<Vertex> queue = new PriorityQueue<Vertex>();
 	}
 }

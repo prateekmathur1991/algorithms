@@ -8,6 +8,7 @@ public class WGraph	{
 	// Inner class to represent a Vertex
 	private class Vertex	{
 		public String name;
+		public Vertex parent;
 		int key;
 
 		Vertex(String name)	{
@@ -16,7 +17,7 @@ public class WGraph	{
 
 		@Override
 		public String toString()	{
-			return this.name;
+			return this.name + " " + Integer.toString(key) + " " + this.parent;
 		}
 
 		public boolean equals(Vertex vertex)	{
@@ -199,6 +200,58 @@ public class WGraph	{
 			return;
 		}
 
-		PriorityQueue<Vertex> queue = new PriorityQueue<Vertex>();
+		PriorityQueue<Vertex> queue = new PriorityQueue<Vertex>(allVertices.size(), new Comparator<Vertex>()	{
+			public int compare(Vertex v1, Vertex v2)	{
+				return v1.key == v2.key ? 0 : (v1.key < v2.key ? -1 : 1);
+			}
+		});
+
+		ArrayList<Edge> primTree = new ArrayList<Edge>();
+	
+		Vertex r = null, u = null;
+
+		Iterator itr = allVertices.entrySet().iterator();
+		while (itr.hasNext())	{
+			Map.Entry entry = (Map.Entry) itr.next();
+			if (entry.getKey().equals(root))	{	
+				r = (Vertex) entry.getValue();
+				continue;
+			}
+			
+			u = (Vertex) entry.getValue();
+			u.key = Integer.MAX_VALUE;
+			u.parent = null;
+		}
+
+		r.key = 0;	
+
+		// Re-iterate to poplute the queue
+		for (Vertex vertex : allVertices.values())	{
+			queue.offer(vertex);
+		}
+
+		while (queue.size() != 0)	{
+			u = (Vertex) queue.poll();
+			System.out.println("Curret Vertex:: " + u);
+			HashMap<Vertex, Integer> list = adjList.get(u);
+
+			System.out.println("Processing Adjacency List of " + u);
+			for (Map.Entry entry : list.entrySet())	{
+				Vertex v = (Vertex) entry.getKey();
+				Integer w = (Integer) entry.getValue();
+				System.out.println("Current Neibhour:: " + v + " Weight:: " + w.toString());		
+	
+				if (queue.contains(v) && w.intValue() < v.key)	{
+					System.out.println("Conditions true. Adding to primTree");
+					v.parent = u;
+					v.key = w;
+					primTree.add(new Edge(u.name, v.name, w.intValue()));
+				}
+			}
+
+			System.out.println();
+		}
+
+		System.out.println(primTree);
 	}
 }

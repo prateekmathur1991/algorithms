@@ -36,8 +36,10 @@ public class WGTest	{
 
 		wgraph.printAdjList();
 
-		System.out.println(wgraph.vertices + " " + wgraph.edges); */
+		System.out.println(wgraph.vertices + " " + wgraph.edges);
 
-		wgraph.makeKruskalMST();
+		wgraph.makeKruskalMST(); */
+
+		wgraph.makePrimMST("A");
 	}
 }

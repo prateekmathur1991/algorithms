@@ -230,7 +230,9 @@ public class WGraph	{
 			queue.offer(vertex);
 		}
 
-		while (queue.size() != 0)	{
+		while (queue.size() != 0)	{	
+			System.out.println("Queue Right Now:: " + queue);
+
 			u = (Vertex) queue.poll();
 			System.out.println("Curret Vertex:: " + u);
 			HashMap<Vertex, Integer> list = adjList.get(u);
@@ -239,7 +241,8 @@ public class WGraph	{
 			for (Map.Entry entry : list.entrySet())	{
 				Vertex v = (Vertex) entry.getKey();
 				Integer w = (Integer) entry.getValue();
-				System.out.println("Current Neibhour:: " + v + " Weight:: " + w.toString());		
+				System.out.println("Current Neibhour:: " + v);
+				System.out.println("Key:: " + v.key + " Edge Weight:: " + w.toString());		
 	
 				if (queue.contains(v) && w.intValue() < v.key)	{
 					System.out.println("Conditions true. Adding to primTree");

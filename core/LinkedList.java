@@ -209,5 +209,30 @@ public class LinkedList	{
 			
 			node = node.next;
 		}
+	}	
+
+	public int findKthToLast(int k)	{
+		Node n = kthToLast(start, k);
+		return n == null ? Integer.MIN_VALUE : n.num;
+	}
+
+	private Node kthToLast(Node start, int k)	{
+		Node p1 = start;
+		Node p2 = start;
+
+		for (int i = 0; i < k; i++)	{
+			if (null == p1)	{
+				return null;
+			}
+
+			p1 = p1.next;
+		}
+
+		while (null != p1)	{
+			p1 = p1.next;
+			p2 = p2.next;
+		}
+
+		return p2;
 	}
 }

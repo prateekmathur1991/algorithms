@@ -5,8 +5,6 @@ package core;
 // Given a list of numbers (array), check if the list is sorted
 // (Turns out the experiment is not so lame)
 
-import java.util.Arrays;
-
 public class CheckSort	{
 	public static void main(String [] args)	{
 		int [] nums = {1, 3, 2, 8, 9, 10, 12, -1, 445};

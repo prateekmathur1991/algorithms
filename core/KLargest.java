@@ -19,7 +19,6 @@ public class KLargest	{
 	}
 
 	public static int findKLargest(int [] nums, int k)	{
-		Random rand = new Random();
 		int low = 0;
 		int high = nums.length - 1;
 

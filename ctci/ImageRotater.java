@@ -1,5 +1,4 @@
 package ctci;
-import java.util.Arrays;
 
 public class ImageRotater	{
 	public static void main(String [] args)	{

@@ -4,6 +4,7 @@ package core;
 // An undirected weighted graph implementation using Adjacency List representation
 
 import java.util.*;
+import java.util.Map.Entry;
 
 public class WGraph	{
 	// Inner class to represent a Vertex
@@ -20,12 +21,9 @@ public class WGraph	{
 		public String toString()	{
 			return this.name + " " + Integer.toString(key) + " " + this.parent;
 		}
-
-		public boolean equals(Vertex vertex)	{
-			return this.name.equalsIgnoreCase(vertex.name);
-		}
 	}
 
+	// Inner class to represent an Edge
 	private class Edge implements Comparable<Edge>	{
 		public String from;
 		public String to;
@@ -47,10 +45,6 @@ public class WGraph	{
 			
 			builder.append(this.from).append(" ---> ").append(this.to).append("(").append(Integer.toString(this.weight)).append(")");
 			return builder.toString();
-		}
-
-		public boolean equals(Edge edge)	{
-			return this.weight == edge.weight;
 		}		
 	}	
 
@@ -111,9 +105,6 @@ public class WGraph	{
 		adjList.get(vf).put(vt, weight);
 		adjList.get(vt).put(vf, weight);
 	
-		/* Edge edge1 = new Edge(from, to, weight);
-		Edge edge2 = new Edge(to, from, weight); */
-
 		allEdges.add(new Edge(from, to, weight));
 		allEdges.add(new Edge(to, from, weight));
 		edges++;
@@ -133,10 +124,10 @@ public class WGraph	{
 			return;
 		}
 
-		Iterator itr = allVertices.entrySet().iterator();
+		Iterator<Entry<String, Vertex>> itr = allVertices.entrySet().iterator();
 
 		while (itr.hasNext())	{
-			Map.Entry pair = (Map.Entry) itr.next();
+			Entry<String, Vertex> pair = itr.next();
 			System.out.print(pair.getKey() + "-->");
 
 			HashMap<Vertex, Integer> list = adjList.get(pair.getValue());
@@ -145,10 +136,10 @@ public class WGraph	{
 				continue;
 			}
 
-			Iterator itr1 = list.entrySet().iterator();
+			Iterator<Entry<Vertex, Integer>> itr1 = list.entrySet().iterator();
 			while (itr1.hasNext())	{
-				Map.Entry pair1 = (Map.Entry) itr1.next();
-				Vertex v = (Vertex) pair1.getKey();
+				Map.Entry<Vertex, Integer> pair1 = itr1.next();
+				Vertex v = pair1.getKey();
 				System.out.print(v.name + "(" + pair1.getValue() + ")" + "-->");
 			}
 
@@ -162,33 +153,21 @@ public class WGraph	{
 		
 		DisjointSet<Vertex> dsets = new DisjointSet<Vertex>();
 		
-		Iterator itr = allVertices.entrySet().iterator();
+		Iterator<Map.Entry<String, Vertex>> itr = allVertices.entrySet().iterator();
 		while (itr.hasNext())	{
-			Map.Entry entry = (Map.Entry) itr.next();
-			dsets.makeSet((Vertex) entry.getValue());
+			Map.Entry<String, Vertex> entry = itr.next();
+			dsets.makeSet(entry.getValue());
 		}
 
 		Collections.sort(this.allEdges);
 
-		// System.out.println(allEdges);
-		// dsets.viewAllSets();
-		
 		for (Edge edge : allEdges)	{
-			// System.out.println("Current Edge:: " + edge);
-			// System.out.println("MST Forest currently:: " + mstForest);
-			// System.out.print("Set of vertices currently:: ");
-			// dsets.viewAllSets();
-
 			Vertex u = allVertices.get(edge.from);
 			Vertex v = allVertices.get(edge.to);
 			if (dsets.findSet(u) != dsets.findSet(v))	{
-				// System.out.println("Different sets. Adding to MST Forest");
 				mstForest.add(edge);
-				// System.out.println("Performing union");
 				dsets.union(u, v);	
 			}
-
-			// System.out.println();
 		}
 
 		System.out.println(mstForest);
@@ -210,9 +189,9 @@ public class WGraph	{
 	
 		Vertex r = null, u = null;
 
-		Iterator itr = allVertices.entrySet().iterator();
+		Iterator<Entry<String, Vertex>> itr = allVertices.entrySet().iterator();
 		while (itr.hasNext())	{
-			Map.Entry entry = (Map.Entry) itr.next();
+			Entry<String, Vertex> entry = itr.next();
 			if (entry.getKey().equals(root))	{	
 				r = (Vertex) entry.getValue();
 				continue;
@@ -233,12 +212,12 @@ public class WGraph	{
 		while (queue.size() != 0)	{	
 			System.out.println("Queue Right Now:: " + queue);
 
-			u = (Vertex) queue.poll();
+			u = queue.poll();
 			System.out.println("Curret Vertex:: " + u);
 			HashMap<Vertex, Integer> list = adjList.get(u);
 
 			System.out.println("Processing Adjacency List of " + u);
-			for (Map.Entry entry : list.entrySet())	{
+			for (Map.Entry<Vertex, Integer> entry : list.entrySet())	{
 				Vertex v = (Vertex) entry.getKey();
 				Integer w = (Integer) entry.getValue();
 				System.out.println("Current Neibhour:: " + v);

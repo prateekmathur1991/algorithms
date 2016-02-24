@@ -4,6 +4,7 @@ package core;
 // A directed graph implementation using Adjacency List representation
 
 import java.util.*;
+import java.util.Map.Entry;
 
 public class DGraph	{
 	// Inner class to represent a Vertex
@@ -96,9 +97,6 @@ public class DGraph	{
 			return false;
 		}
 
-		Vertex vf = allVertices.get(from);
-		Vertex vt = allVertices.get(to);
-
 		return adjList.get(allVertices.get(from)).contains(allVertices.get(to));
 	}
 
@@ -108,10 +106,10 @@ public class DGraph	{
 			return;
 		}
 
-		Iterator itr = allVertices.entrySet().iterator();
+		Iterator<Entry<String, Vertex>> itr = allVertices.entrySet().iterator();
 
 		while (itr.hasNext())	{
-			Map.Entry pair = (Map.Entry) itr.next();
+			Entry<String, Vertex> pair = itr.next();
 			System.out.print(pair.getKey() + "-->");
 			
 			HashSet<Vertex> list = adjList.get(pair.getValue());
@@ -120,9 +118,9 @@ public class DGraph	{
 				continue;
 			}	
 
-			Iterator itr1 = list.iterator();
+			Iterator<Vertex> itr1 = list.iterator();
 			while (itr1.hasNext())	{
-				Vertex v = (Vertex) itr1.next();
+				Vertex v = itr1.next();
 				System.out.print(v.name + "-->");
 			}
 			System.out.print("END");
@@ -139,15 +137,15 @@ public class DGraph	{
 		java.util.LinkedList<Vertex> queue = new java.util.LinkedList<Vertex>();
 		Vertex root = null, u= null;
 		
-		Iterator itr = allVertices.entrySet().iterator();
+		Iterator<Entry<String, Vertex>> itr = allVertices.entrySet().iterator();
 		while (itr.hasNext())	{
-			Map.Entry entry = (Map.Entry) itr.next();
+			Entry<String, Vertex> entry = itr.next();
 			if (entry.getKey().equals(r)) {
-				root = (Vertex) entry.getValue();
+				root = entry.getValue();
 				continue;
 			}
 
-			u = (Vertex) entry.getValue();
+			u = entry.getValue();
 			u.color = "w";
 			u.distance = Integer.MAX_VALUE;
 			u.parent = null;
@@ -165,9 +163,9 @@ public class DGraph	{
 			HashSet<Vertex> list = adjList.get(u);
 
 			System.out.println("Getting and coloring Neighbours");
-			Iterator itr1 = list.iterator();
+			Iterator<Vertex> itr1 = list.iterator();
 			while (itr1.hasNext())	{
-				Vertex v = (Vertex) itr1.next();
+				Vertex v = itr1.next();
 				if ("w".equals(v.color))	{
 					System.out.println("Got white neighbour " + v.name);
 					v.color = "g";
@@ -191,7 +189,6 @@ public class DGraph	{
 
 		this.printBFS(source);
 
-		Vertex s = allVertices.get(source);
 		Vertex v = allVertices.get(vertex);
 		
 		if (source.equals(vertex))	{
@@ -213,9 +210,9 @@ public class DGraph	{
 			verticesList = new java.util.LinkedList<Vertex>();
 		}
 
-		Iterator itr = allVertices.entrySet().iterator();
+		Iterator<Entry<String, Vertex>> itr = allVertices.entrySet().iterator();
 		while (itr.hasNext())	{
-			Map.Entry entry = (Map.Entry) itr.next();
+			Entry<String, Vertex> entry = itr.next();
 			Vertex u = (Vertex) entry.getValue();
 			u.color = "w";
 			u.parent = null;
@@ -227,7 +224,7 @@ public class DGraph	{
 		
 		itr = allVertices.entrySet().iterator();
 		while (itr.hasNext())	{
-			Map.Entry entry = (Map.Entry) itr.next();
+			Entry<String, Vertex> entry = itr.next();
 			Vertex u = (Vertex) entry.getValue();
 			System.out.println("About to visit:: " + u.name);
 			dfsVisit(u, topo);
@@ -240,11 +237,11 @@ public class DGraph	{
 		u.color = "g";
 
 		HashSet<Vertex> list = adjList.get(u);
-		Iterator itr = list.iterator();
+		Iterator<Vertex> itr = list.iterator();
 		System.out.println("Visiting adjacency list for " + u.name);
 
 		while (itr.hasNext())	{
-			Vertex v = (Vertex) itr.next();
+			Vertex v = itr.next();
 			if (v.color.equals("w"))	{
 				System.out.println("White node found. About to visit recursively " + v.name);
 				v.parent = u;

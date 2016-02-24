@@ -1,5 +1,4 @@
 package ctci;
-import java.util.HashSet;
 import java.util.Arrays;
 
 public class CheckPalin {

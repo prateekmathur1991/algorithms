@@ -18,9 +18,9 @@ public class DisjointSet<T>	{
 	}
 
 	public void makeSet(T t)	{
-		Iterator itr = allSets.iterator();
+		Iterator<LinkedHashSet<T>> itr = allSets.iterator();
 		while (itr.hasNext())	{
-			LinkedHashSet set = (LinkedHashSet) itr.next();
+			LinkedHashSet<T> set = itr.next();
 			if (set.contains(t))	{
 				return;
 			}
@@ -33,9 +33,9 @@ public class DisjointSet<T>	{
 	}
 
 	public T findSet(T t)	{		
-		Iterator itr = allSets.iterator();
+		Iterator<LinkedHashSet<T>> itr = allSets.iterator();
 		while (itr.hasNext())	{
-			LinkedHashSet set = (LinkedHashSet) itr.next();
+			LinkedHashSet<T> set = itr.next();
 			if (set.contains(t))	{
 				return (T) set.iterator().next();
 			}
@@ -47,9 +47,9 @@ public class DisjointSet<T>	{
 	public void union(T t1, T t2)	{
 		LinkedHashSet<T> set1 = null, set2 = null;
 		
-		Iterator itr = allSets.iterator();
+		Iterator<LinkedHashSet<T>> itr = allSets.iterator();
 		while (itr.hasNext())	{
-			LinkedHashSet set = (LinkedHashSet) itr.next();
+			LinkedHashSet<T> set = itr.next();
 			if (set.contains(t1))	{
 				set1 = (LinkedHashSet<T>) set;
 			} else if (set.contains(t2))	{

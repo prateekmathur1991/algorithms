@@ -1,6 +1,11 @@
+package ctci;
+import core.LinkedList;
+
 public class RemoveDups	{
 	public static void main(String [] args)	{
-		LinkedList list = new LinkedList();
+		core.LinkedList list = new core.LinkedList();
+
+		/* LinkedList list = new LinkedList();
 		
 		list.add(12);
 		list.add(10);
@@ -8,6 +13,6 @@ public class RemoveDups	{
 		list.add(12);
 		list.add(13);
 
-		list.printList();
+		list.printList(); */
 	}
 }

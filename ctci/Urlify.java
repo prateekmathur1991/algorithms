@@ -1,3 +1,4 @@
+package ctci;
 import java.util.Arrays;
 
 public class Urlify	{

@@ -1,3 +1,4 @@
+package ctci;
 public class OneEditAway	{
 	public static void main(String [] args)	{
 		System.out.println(isOneOrZeroEditAway(args[0], args[1]));

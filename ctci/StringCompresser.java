@@ -1,3 +1,4 @@
+package ctci;
 public class StringCompresser	{
 	public static void main(String [] args)	{
 		System.out.println(compress(args[0]));

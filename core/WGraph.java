@@ -37,7 +37,6 @@ public class WGraph	{
 			this.weight = weight;
 		}
 
-		@Override
 		public int compareTo(Edge edge)	{
 			return this.weight == edge.weight ? 0 : (this.weight < edge.weight ? -1 : 1);
 		}

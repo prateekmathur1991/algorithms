@@ -1,4 +1,7 @@
 package core;
+
+import java.util.HashSet;
+
 // Prateek Mathur
 
 // Java implementation of a Singly Linked List
@@ -33,7 +36,7 @@ public class LinkedList	{
 	// Global pointer to start
 	Node start;
 
-	LinkedList()	{
+	public LinkedList()	{
 		start = null;
 	}
 
@@ -171,5 +174,40 @@ public class LinkedList	{
 		}
 		
 		System.out.println("END");
+	}
+	
+	public void removeDuplicates()	{
+		removeDups(start);
+		
+		/* int [] arr = new int[Integer.MAX_VALUE];
+		Node current = start.next;
+		Node prev = current;
+		
+		while (null != current)	{
+			arr[current.num]++;
+			if (arr[current.num] >= 2)	{
+				prev.next = current.next;
+				current = current.next;
+			} else {
+				prev = current;
+				current = current.next;
+			}
+		} */
+	}
+	
+	private void removeDups(Node node)	{
+		HashSet<Integer> set = new HashSet<Integer>();
+		Node prev = null;
+		
+		while (null != node)	{
+			if (set.contains(node.num))	{
+				prev.next = node.next;
+			} else {
+				set.add(node.num);
+				prev = node;
+			}
+			
+			node = node.next;
+		}
 	}
 }

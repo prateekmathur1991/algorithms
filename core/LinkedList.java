@@ -235,4 +235,19 @@ public class LinkedList	{
 
 		return p2;
 	}
+
+	public void printRecursively()	{
+		traverse(start);	
+	}
+
+	// Recursively traverses through the list and prints each element
+	private void traverse(Node node)	{
+		if (null == node.next)	{
+			System.out.println(Integer.toString(node.num) + "--->END");
+			return;
+		} else {
+			System.out.print(Integer.toString(node.num) + "--->");
+			traverse(node.next);
+		}
+	}
 }

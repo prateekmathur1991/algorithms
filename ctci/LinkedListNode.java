@@ -1,3 +1,5 @@
+package ctci;
+
 public class LinkedListNode	{
 	public LinkedListNode prev, next, last;
 	public int data;

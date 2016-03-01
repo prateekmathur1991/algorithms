@@ -16,11 +16,11 @@ public class RemoveDups	{
 		start.setNext(new LinkedListNode(14));
 		start.setNext(new LinkedListNode(15));	
 		
-		LinkedListNode.printList(start);
+		// LinkedListNode.printList(start);
 
 		removeDups(start);
 
-		LinkedListNode.printList(start);	
+		// LinkedListNode.printList(start);	
 
 		/* LinkedList list = new LinkedList();
 		

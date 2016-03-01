@@ -1,12 +1,11 @@
 package ctci;
 
-import core.LinkedList;
 import java.util.HashSet;
 
 public class RemoveDups	{
 	public static void main(String [] args)	{
 
-		LinkedListNode start = new LinkedListNode(12);
+		/* LinkedListNode start = new LinkedListNode(12);
 		start.setNext(new LinkedListNode(10));
 			
 		start.setNext(new LinkedListNode(11));	
@@ -16,13 +15,11 @@ public class RemoveDups	{
 		start.setNext(new LinkedListNode(14));
 		start.setNext(new LinkedListNode(15));	
 		
-		// LinkedListNode.printList(start);
+		LinkedListNode.printList(start);
+ 
+		LinkedListNode.printList(start); */
 
-		removeDups(start);
-
-		// LinkedListNode.printList(start);	
-
-		/* LinkedList list = new LinkedList();
+		LinkedList list = new LinkedList();
 		
 		list.add(12);
 		list.add(10);
@@ -37,7 +34,7 @@ public class RemoveDups	{
 		
 		list.removeDuplicates();
 		
-		list.printList(); */
+		list.printList();
 	}
 
 

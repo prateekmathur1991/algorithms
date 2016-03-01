@@ -1,4 +1,4 @@
-package core;
+package ctci;
 
 import java.util.HashSet;
 
@@ -176,7 +176,7 @@ public class LinkedList	{
 		System.out.println("END");
 	}
 	
-	/* public void removeDuplicates()	{
+	public void removeDuplicates()	{
 		removeDups(start);
 	}
 	
@@ -219,7 +219,7 @@ public class LinkedList	{
 		}
 
 		return p2;
-	} */
+	}
 
 	public void printRecursively()	{
 		traverse(start);	

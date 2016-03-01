@@ -1,3 +1,5 @@
+package ctci;
+
 public class LinkedListNode	{
 	public LinkedListNode prev, next, last;
 	public int data;
@@ -39,5 +41,16 @@ public class LinkedListNode	{
 
 		LinkedListNode head2 = new LinkedListNode(data, next2, null);
 		return head2;
+	}
+
+	public static void printList(LinkedListNode head)	{
+		StringBuilder builder = new StringBuilder();
+		LinkedListNode start = head;
+		while (start.next != null) {
+			builder.append(Integer.toString(start.data)).append("--->");
+			start = start.next;
+		}
+		builder.append("END");
+		System.out.println(builder.toString());
 	}
 }

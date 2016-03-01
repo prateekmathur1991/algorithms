@@ -12,11 +12,18 @@ public class LinkedStack<T>	{
 
 	private StackNode<T> top;
 	private int size;
-	private static int MAX_NODES = 10;
+	private int MAX_NODES;
 
 	{
-		size = 0;
 		top = null;
+	}
+
+	public LinkedStack()	{
+		MAX_NODES = 10;
+	}
+
+	public LinkedStack(int max)	{
+		MAX_NODES = max;
 	}
 
 	public T pop()	{

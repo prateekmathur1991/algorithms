@@ -176,6 +176,7 @@ public class LinkedList	{
 		System.out.println("END");
 	}
 	
+	// Methods for problems from Cracking The Coding Interview start here
 	public void removeDuplicates()	{
 		removeDups(start);
 	}
@@ -235,4 +236,34 @@ public class LinkedList	{
 			traverse(node.next);
 		}
 	}
+
+	public boolean isPalindrome()	{
+		return checkPalindrome(start);
+	}
+
+	private boolean checkPalindrome(Node start)	{
+		LinkedStack<Integer> stack = new LinkedStack<Integer>(100);
+		Node p1 = start; // Fast runner
+		Node p2 = start; // Slow runner
+
+		while (p1 != null && p1.next != null)	{
+			stack.push(p2.num);
+			p1 = p1.next.next;
+			p2 = p2.next;
+		}
+
+		if (p1 != null)	{
+			p2 = p2.next;
+		}
+
+		while (p2 != null)	{
+			int top = stack.pop().intValue();
+			if (top != p2.num)	{
+				return false;
+			}
+			p2 = p2.next;
+		}	
+		
+		return true;	
+	} 
 }

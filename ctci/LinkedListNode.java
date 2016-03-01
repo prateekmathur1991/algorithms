@@ -43,14 +43,11 @@ public class LinkedListNode	{
 		return head2;
 	}
 
-	public static void printList(LinkedListNode head)	{
-		StringBuilder builder = new StringBuilder();
-		LinkedListNode start = head;
-		while (start.next != null) {
-			builder.append(Integer.toString(start.data)).append("--->");
-			start = start.next;
-		}
-		builder.append("END");
-		System.out.println(builder.toString());
-	}
+	public String printForward() {
+                 if (next != null) {
+                         return data + "->" + next.printForward();
+                } else {
+                         return ((Integer) data).toString();
+                 }
+        }	
 }

@@ -34,7 +34,7 @@ public class LinkedList	{
 	}
 
 	// Global pointer to start
-	Node start;
+	public Node start;
 
 	public LinkedList()	{
 		start = null;
@@ -238,10 +238,10 @@ public class LinkedList	{
 	}
 
 	public boolean isPalindrome()	{
-		return checkPalindrome(start);
+		return isPalindrome(start);
 	}
 
-	private boolean checkPalindrome(Node start)	{
+	private boolean isPalindrome(Node start)	{
 		LinkedStack<Integer> stack = new LinkedStack<Integer>(100);
 		Node p1 = start; // Fast runner
 		Node p2 = start; // Slow runner
@@ -266,4 +266,32 @@ public class LinkedList	{
 		
 		return true;	
 	} 
+
+	// Computes the sum of 2 numbers saved in inverted form in a Linked List
+	public static LinkedList computeInvertedSum(LinkedList list1, LinkedList list2)	{
+		LinkedList iSum = new LinkedList();
+		computeInvertedSum(list1.start, list2.start, 0, iSum);
+		return iSum;
+	}
+	
+	private static void computeInvertedSum(Node node1, Node node2, int carry, LinkedList iSum)	{
+		if (node1 != null && node2 != null)	{
+			int sum = node1.num + node2.num + carry;
+			if (sum >= 10)	{
+				iSum.add(sum%10);
+			} else {
+				iSum.add(sum);
+			}
+			
+			computeInvertedSum(node1.next, node2.next, sum/10, iSum);
+		} else {
+			if (node2 == null)	{
+				if (node1 != null) {
+					iSum.add(node1.num + carry);
+				}
+			} else {
+				iSum.add(node2.num + carry);
+			}
+		}
+	}
 }

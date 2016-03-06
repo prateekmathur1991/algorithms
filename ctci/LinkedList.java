@@ -1,4 +1,4 @@
-package core;
+package ctci;
 
 import java.util.HashSet;
 
@@ -34,7 +34,7 @@ public class LinkedList	{
 	}
 
 	// Global pointer to start
-	Node start;
+	public Node start;
 
 	public LinkedList()	{
 		start = null;
@@ -176,7 +176,8 @@ public class LinkedList	{
 		System.out.println("END");
 	}
 	
-	/* public void removeDuplicates()	{
+	// Methods for problems from Cracking The Coding Interview start here
+	public void removeDuplicates()	{
 		removeDups(start);
 	}
 	
@@ -219,7 +220,7 @@ public class LinkedList	{
 		}
 
 		return p2;
-	} */
+	}
 
 	public void printRecursively()	{
 		traverse(start);	
@@ -233,6 +234,64 @@ public class LinkedList	{
 		} else {
 			System.out.print(Integer.toString(node.num) + "--->");
 			traverse(node.next);
+		}
+	}
+
+	public boolean isPalindrome()	{
+		return isPalindrome(start);
+	}
+
+	private boolean isPalindrome(Node start)	{
+		LinkedStack<Integer> stack = new LinkedStack<Integer>(100);
+		Node p1 = start; // Fast runner
+		Node p2 = start; // Slow runner
+
+		while (p1 != null && p1.next != null)	{
+			stack.push(p2.num);
+			p1 = p1.next.next;
+			p2 = p2.next;
+		}
+
+		if (p1 != null)	{
+			p2 = p2.next;
+		}
+
+		while (p2 != null)	{
+			int top = stack.pop().intValue();
+			if (top != p2.num)	{
+				return false;
+			}
+			p2 = p2.next;
+		}	
+		
+		return true;	
+	} 
+
+	// Computes the sum of 2 numbers saved in inverted form in a Linked List
+	public static LinkedList computeInvertedSum(LinkedList list1, LinkedList list2)	{
+		LinkedList iSum = new LinkedList();
+		computeInvertedSum(list1.start, list2.start, 0, iSum);
+		return iSum;
+	}
+	
+	private static void computeInvertedSum(Node node1, Node node2, int carry, LinkedList iSum)	{
+		if (node1 != null && node2 != null)	{
+			int sum = node1.num + node2.num + carry;
+			if (sum >= 10)	{
+				iSum.add(sum%10);
+			} else {
+				iSum.add(sum);
+			}
+			
+			computeInvertedSum(node1.next, node2.next, sum/10, iSum);
+		} else {
+			if (node2 == null)	{
+				if (node1 != null) {
+					iSum.add(node1.num + carry);
+				}
+			} else {
+				iSum.add(node2.num + carry);
+			}
 		}
 	}
 }

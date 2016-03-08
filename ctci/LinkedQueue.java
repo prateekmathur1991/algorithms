@@ -1,7 +1,5 @@
 package ctci;
 
-import java.util.NoSuchElementException;
-
 public class LinkedQueue<T> {
 	private static class QueueNode<T> {
 		private T data;

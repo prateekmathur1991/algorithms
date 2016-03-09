@@ -8,6 +8,10 @@ public class LinkedStack<T>	{
 		public StackNode(T d)	{
 			this.data = d;
 		}
+
+		public T getData()	{
+			return data;
+		}
 	}
 
 	private StackNode<T> top;
@@ -70,5 +74,22 @@ public class LinkedStack<T>	{
 
 	public int size()	{
 		return size;
+	}
+
+	@Override
+	public String toString()	{
+		StackNode<T> start = top;
+		if (start == null)	{
+			return "";
+		}
+
+		StringBuilder builder = new StringBuilder();
+		while (start.next != null)	{
+			builder.append(start.getData()).append("-->");
+			start = start.next;
+		}
+		builder.append("END");
+
+		return builder.toString();
 	}
 }

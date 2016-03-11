@@ -75,6 +75,15 @@ public class Minimax	{
 
 		Matcher matcher = pattern.matcher(state);
 		if (!matcher.matches())	{
+			try {
+				if (null != scr) {
+					scr.close();
+					scr = null;
+				}
+			} catch (Exception e) {
+				// Fine!
+			}
+			
 			throw new IllegalArgumentException("Board should be of length 9 and contain only X, O or -");
 		}
 
@@ -86,6 +95,15 @@ public class Minimax	{
 		if (hasWon(state, 'O'))	{
 			System.out.println("O wins");
 			System.exit(0);
+		}
+		
+		try {
+			if (null != scr) {
+				scr.close();
+				scr = null;
+			}
+		} catch (Exception e) {
+			// Fine!
 		}
 	}
 

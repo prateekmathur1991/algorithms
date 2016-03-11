@@ -1,7 +1,5 @@
 package core;
 
-import java.util.HashSet;
-
 // Prateek Mathur
 
 // Java implementation of a Singly Linked List

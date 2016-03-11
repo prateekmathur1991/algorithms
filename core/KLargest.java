@@ -5,7 +5,6 @@ package core;
 // largest number.
 
 import java.util.Arrays;
-import java.util.Random;
 
 public class KLargest	{
 	public static void main(String [] args)	{

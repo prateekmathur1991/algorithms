@@ -7,6 +7,8 @@ package core;
 // Overflow: (rear + 1) MOD size == front
 // Underflow: rear == front
 
+// This queue implementation is broken, I need to fix this
+
 import java.util.Arrays;
 
 class Queue	{

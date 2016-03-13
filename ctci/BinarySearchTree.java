@@ -1,9 +1,9 @@
-package core;
+package ctci;
 // Prateek Mathur
 
 // A Java implementation of a Binary Search Tree
 
-public class BST {
+public class BinarySearchTree {
 	// Inner class to represent a Node
 	public class Node {
 		public int key;
@@ -26,10 +26,10 @@ public class BST {
 		}
 	}
 
-	// Root of the BST
+	// Root of the BinarySearchTree
 	private Node root;
 
-	BST() {
+	public BinarySearchTree() {
 		this.root = null;
 	}
 
@@ -37,7 +37,7 @@ public class BST {
 		return this.root == null ? "EMPTY" : Integer.toString(this.root.key);
 	}
 
-	// Inserts a node in the BST
+	// Inserts a node in the BinarySearchTree
 	public void insert(int key) {
 		this.root = insertIntoBST(this.root, key);
 	}

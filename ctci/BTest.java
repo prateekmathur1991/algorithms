@@ -1,4 +1,4 @@
-package core;
+package ctci;
 // Prateek Mathur
 
 // Java code to test a Binary Search Tree

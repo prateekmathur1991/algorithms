@@ -13,7 +13,7 @@ import java.util.*;
 public class DisjointSet<T>	{
 	Set<LinkedHashSet<T>> allSets;
 
-	DisjointSet()	{
+	public DisjointSet()	{
 		allSets = new HashSet<LinkedHashSet<T>>();
 	}
 

@@ -1,6 +1,9 @@
 package ctci;
 // Prateek Mathur
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 // A Java implementation of a Binary Search Tree
 
 public class BinarySearchTree {
@@ -132,5 +135,37 @@ public class BinarySearchTree {
 		}
 
 		return min;
+	}
+	
+	public ArrayList<LinkedList<Node>> listsAtLevel()	{
+		return getListsAtLevel(this.root);
+	}
+	
+	private ArrayList<LinkedList<Node>> getListsAtLevel(Node root)	{
+		ArrayList<LinkedList<Node>> lists = new ArrayList<>();
+		
+		LinkedList<Node> current = new LinkedList<>();
+		if (null != root)	{
+			current.add(root);
+		}
+		
+		while (current.size() > 0)	{
+			lists.add(current);
+			
+			LinkedList<Node> parents = current;
+			current = new LinkedList<Node>();
+			
+			for (Node parent : parents)	{
+				if (null != parent.left)	{
+					current.add(parent.left);
+				}
+				
+				if (null != parent.right)	{
+					current.add(parent.right);
+				}
+			}
+		}
+		
+		return lists;
 	}
 }

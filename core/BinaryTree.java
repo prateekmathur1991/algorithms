@@ -29,7 +29,7 @@ public class BinaryTree {
 	// Root of the BinaryTree
 	private Node root;
 
-	BinaryTree() {
+	public BinaryTree() {
 		this.root = null;
 	}
 

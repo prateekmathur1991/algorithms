@@ -119,4 +119,37 @@ public class BinaryTree {
 		
 		return root;
 	}
+	
+	// This method's definition of a balanced tree is - a tree is balanced
+	// if height of both subtrees of every node do not differ by more than 1
+	public boolean isBalanced()	{
+		return isBalanced(this.root);
+	}
+
+	private boolean isBalanced(Node root) {
+		return checkHeight(root) != Integer.MIN_VALUE;
+	}
+	
+	private int checkHeight(Node root)	{
+		if (null == root) {
+			return -1;
+		}
+		
+		int leftHeight = checkHeight(root.left);
+		if (leftHeight == Integer.MIN_VALUE)	{
+			return Integer.MIN_VALUE;
+		}
+		
+		int rightHeight = checkHeight(root.right);
+		if (rightHeight == Integer.MIN_VALUE)	{
+			return Integer.MIN_VALUE;
+		}
+		
+		int heightDiff = leftHeight - rightHeight;
+		if (Math.abs(heightDiff) > 1)	{
+			return Integer.MIN_VALUE;
+		} else {
+			return Math.max(leftHeight, rightHeight) + 1;
+		}
+	}
 }

@@ -63,11 +63,35 @@ public class BinaryTree {
 		inorder(this.root);
 	}
 	
+	public void preorder()	{
+		preorder(this.root);
+	}
+	
+	public void postorder()	{
+		postorder(this.root);
+	}
+	
 	private void inorder(Node root)	{
 		if (null != root) {
 			inorder(root.left);
 			System.out.print(root.key + ", ");
 			inorder(root.right);
+		}
+	}
+	
+	private void preorder(Node root)	{
+		if (null != root)	{
+			System.out.print(root.key + ", ");
+			preorder(root.left);
+			preorder(root.right);
+		}
+	}
+	
+	private void postorder(Node root)	{
+		if (null != root)	{
+			preorder(root.left);
+			preorder(root.right);
+			System.out.print(root.key + ", ");
 		}
 	}
 
@@ -151,5 +175,32 @@ public class BinaryTree {
 		} else {
 			return Math.max(leftHeight, rightHeight) + 1;
 		}
+	}
+	
+	public boolean isBinarySearchTree()	{
+		return isBinarySearchTree(this.root);
+	}
+
+	private boolean isBinarySearchTree(Node root) {
+		boolean result = true;
+		if (null != root.left)	{
+			if (root.left.key > root.key)	{
+				result = false;
+			} else {
+				result = isBinarySearchTree(root.left);
+			}
+		}	
+		
+		if (result) {
+			if (null != root.right) {
+				if (root.right.key <= root.key) {
+					result = false;
+				} else {
+					result = isBinarySearchTree(root.right);
+				}
+			}
+		}
+		
+		return result;
 	}
 }

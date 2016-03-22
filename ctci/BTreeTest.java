@@ -1,25 +1,26 @@
 package ctci;
 
-import java.util.HashSet;
-import java.util.Random;
-
 public class BTreeTest {
 
 	public static void main(String[] args) {
 		BinaryTree tree = new BinaryTree();
 		
-		tree.insert(10);
 		tree.insert(2);
-		tree.insert(20);
-		tree.insert(5);
-		tree.insert(22);
-		tree.insert(35);
-		tree.insert(25);
+		tree.insert(8);
+		tree.insert(10);
+		tree.insert(12);
+		tree.insert(14);
+		tree.insert(16);
 		
 		tree.inorder();
 		System.out.println();
 		
-		System.out.println(tree.isBalanced());
+		tree.preorder();
+		System.out.println();
+		
+		System.out.println(tree.isBinarySearchTree());
+		
+		// System.out.println(tree.isBalanced());
 	}
 
 }

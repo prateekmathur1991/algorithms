@@ -12,6 +12,9 @@ public class WGraph	{
 		public String name;
 		public Vertex parent;
 		int key;
+		
+		// Required for DFS
+		public boolean visited = false;
 
 		Vertex(String name)	{
 			this.name = name;
@@ -236,4 +239,34 @@ public class WGraph	{
 
 		System.out.println(primTree);
 	}
+	
+	// This method is a simplified version of DFS, and I
+		// find it easier to implement and use
+		public void dfs(String root)	{	
+			if (hasVertex(root)) {
+				throw new RuntimeException("Root not present in graph");
+			}
+			
+			Vertex v = allVertices.get(root);
+			search(v);
+		}
+		
+		private void search(Vertex root)	{
+			if (null == root)	{
+				return;
+			}
+			
+			System.out.print(root + " ");
+			root.visited = true;
+			
+			HashMap<Vertex, Integer> list = adjList.get(root);
+			Iterator<Map.Entry<Vertex, Integer>> itr = list.entrySet().iterator();
+			
+			while (itr.hasNext())	{
+				Vertex v = itr.next().getKey();
+				if (v.visited == false)	{
+					search(v);
+				}
+			}
+		}
 }

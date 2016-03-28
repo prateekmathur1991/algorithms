@@ -19,6 +19,7 @@ public class DGraph	{
 		// Required for DFS
 		public int discoveryTime;
 		public int finishTime;
+		public boolean visited = false;
 
 		Vertex(String name)	{
 			this.name = name;
@@ -264,4 +265,35 @@ public class DGraph	{
 		DFS(true);
 		System.out.println(Arrays.toString(verticesList.toArray(new Vertex[0])));
 	}
+	
+	// This method is a simplified version of DFS, and I
+		// find it easier to implement and use
+		public void dfs(String root)	{	
+			if (hasVertex(root)) {
+				throw new RuntimeException("Root not present in graph");
+			}
+			
+			Vertex v = allVertices.get(root);
+			search(v);
+		}
+		
+		private void search(Vertex root)	{
+			if (null == root)	{
+				return;
+			}
+			
+			System.out.print(root + " ");
+			root.visited = true;
+			
+			HashSet<Vertex> list = adjList.get(root);
+			Iterator<Vertex> itr = list.iterator();
+			
+			while (itr.hasNext())	{
+				Vertex v = itr.next();
+				if (v.visited == false)	{
+					search(v);
+				}
+			}
+				
+		}
 }

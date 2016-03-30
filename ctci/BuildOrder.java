@@ -21,20 +21,21 @@ public class BuildOrder {
 				{"d", "b"},
 				{"a", "f"},
 				{"c", "d"},
-				};
+		};
 		
 		for (String project : projects) {
 			projectGraph.addNode(project);
 		}
 		
 		for (String[] dependency : dependencies) {
-			String first = dependency[0];
-			String second = dependency[1];
+			String first = dependency[1];
+			String second = dependency[0];
 			projectGraph.addEdge(first, second);
 		}
 		
 		Stack<Project> buildOrder = orderProjects(projectGraph.getNodes());
-		System.out.println(Arrays.toString(getBuildOrderArray(buildOrder)));
+		// System.out.println(Arrays.toString(getBuildOrderArray(buildOrder)));
+		System.out.println(buildOrder);
 	}
 	
 	public static Stack<Project> orderProjects(List<Project> projects) {
@@ -58,7 +59,7 @@ public class BuildOrder {
 		
 		if (project.getState() == Project.State.BLANK) {
 			project.setState(Project.State.PARTIAL);
-			List<ctci.Project> children = project.getAdjList();
+			List<Project> children = project.getAdjList();
 			for (Project child : children) {
 				if (!doDFS(child, stack)) {
 					return false;
@@ -68,16 +69,16 @@ public class BuildOrder {
 			project.setState(Project.State.COMPLETE);
 			stack.push(project);
 		}
+
 		return true;
 	}
 	
-	public static String[] getBuildOrderArray(Stack<Project> projects)	{
+	/* public static String[] getBuildOrderArray(Stack<Project> projects)	{
 		String[] buildOrder = new String[projects.size()];
 		for (int i = 0; i < buildOrder.length; i++) {
 			buildOrder[i] = projects.pop().getName();
 		}
 		return buildOrder;
-
-	}
+	} */
 
 }

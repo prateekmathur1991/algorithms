@@ -56,12 +56,12 @@ public class LinkedList	{
 
 	public String search(int key)	{
 		Node getNode = searchNode(key);
-		return getNode.num == Integer.MIN_VALUE ? "NOT FOUND" : getNode.toString();
+		return getNode == null ? "NOT FOUND" : getNode.toString();
 	}
 
 	private Node searchNode(int key)	{
 		if (null == start) {
-			return new Node(Integer.MIN_VALUE);
+			return null;
 		}
 
 		Node current = start;
@@ -73,7 +73,7 @@ public class LinkedList	{
 			current = current.next;
 		}
 
-		return new Node(Integer.MIN_VALUE);
+		return null;
 	}
 
 	public void insertAfter(int value, int key)	{
@@ -83,7 +83,7 @@ public class LinkedList	{
 		}		
 
 		Node getNode = searchNode(value);
-		if (getNode.num == Integer.MIN_VALUE) {
+		if (getNode == null) {
 			return;
 		}
 
@@ -232,5 +232,22 @@ public class LinkedList	{
 			System.out.print(Integer.toString(node.num) + "--->");
 			traverse(node.next);
 		}
+	}
+
+	public int findMiddle()	{
+		Node middle = findMiddle(this.start);
+		return middle.num;
+	}
+
+	private Node findMiddle(Node start)	{		
+		Node fastRunner = start;
+		Node slowRunner = start;
+
+		while (fastRunner.next != null)	{
+			fastRunner = fastRunner.next.next;
+			slowRunner = slowRunner.next;
+		}
+
+		return slowRunner;
 	}
 }

@@ -21,14 +21,16 @@ public class LTest	{
 
 		linkedList.insertBefore(10, 9);
 		linkedList.printList();
+
+		System.out.println(linkedList.findMiddle());
 	
-		System.out.println(linkedList.search(20));
+		/* System.out.println(linkedList.search(20));
 		System.out.println(linkedList.search(15));
 
 		linkedList.delete(9);
 		linkedList.printList();
 
 		linkedList.delete(9);
-		linkedList.printList();
+		linkedList.printList(); */
 	}
 }

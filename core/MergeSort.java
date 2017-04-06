@@ -34,7 +34,7 @@ class MergeSortDemo	{
 				nums[k] = helper[j];
 				j++;
 			}
-
+	
 			k++;
 		}
 

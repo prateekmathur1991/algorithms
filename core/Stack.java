@@ -1,8 +1,5 @@
 package core;
 
-import com.practice.exception.StackEmptyException;
-import com.practice.exception.StackFullException;
-
 public class Stack<T> {
 	
 	private T [] arr;
@@ -30,18 +27,18 @@ public class Stack<T> {
 		return top == -1;
 	}
 	
-	public void push(T obj) throws StackFullException {
+	public void push(T obj) {
 		if (this.isFull()) {
-			throw new StackFullException("Stack is full");
+			throw new RuntimeException("Stack is full");
 		}
 		
 		this.top = this.top + 1;
 		this.arr[top] = obj;
 	}
 	
-	public T pop() throws StackEmptyException {
+	public T pop() {
 		if (this.isEmpty()) {
-			throw new StackEmptyException("Stack is empty");
+			throw new RuntimeException("Stack is empty");
 		}
 		
 		T obj = this.arr[this.top];

@@ -1,44 +1,52 @@
 package core;
-// Prateek Mathur
 
-// Java implementation of a Stack
+import com.practice.exception.StackEmptyException;
+import com.practice.exception.StackFullException;
 
-public class Stack	{
-	private int top;
-	private int [] stack;
-
-	Stack() {
-		this.top = -1;
-		stack = new int [10];	
+public class Stack<T> {
+	
+	private T [] arr;
+	
+	private int max = 5;
+	
+	private int top = -1;
+	
+	@SuppressWarnings("unchecked")
+	public Stack() {
+		this.arr = (T []) new Object[this.max];
 	}
-
-	Stack(int size)	{
-		this.top = -1;
-		stack = new int [size];
+	
+	@SuppressWarnings("unchecked")
+	public Stack(int max) {
+		this.max = max;
+		this.arr = (T []) new Object[this.max];
 	}
-
-	public void push(int num) {
-		if (this.top == stack.length - 1) {
-			System.err.println("STACK OVERFLOW");
-			return;
+	
+	public boolean isFull() {
+		return top == (max - 1);
+	}
+	
+	public boolean isEmpty() {
+		return top == -1;
+	}
+	
+	public void push(T obj) throws StackFullException {
+		if (this.isFull()) {
+			throw new StackFullException("Stack is full");
 		}
-
-		stack[++this.top] = num;
+		
+		this.top = this.top + 1;
+		this.arr[top] = obj;
 	}
-
-	public int pop() {
-		if (this.top == - 1) {
-			System.err.println("STACK UNDERFLOW");
-			return -1;
+	
+	public T pop() throws StackEmptyException {
+		if (this.isEmpty()) {
+			throw new StackEmptyException("Stack is empty");
 		}
-
-		return stack[this.top--];
-	}
-
-	public void printStack()	{
-		int i = this.top;
-		while (i != -1) {
-			System.out.print(stack[i--] + ", ");
-		}
+		
+		T obj = this.arr[this.top];
+		this.top = this.top - 1;
+		
+		return obj;
 	}
 }

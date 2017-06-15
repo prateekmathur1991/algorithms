@@ -1,64 +1,62 @@
 package core;
-// Prateek Mathur
 
-// Java implementation of a queue
-//
-// Conditions for queue overflow and underflow
-// Overflow: (rear + 1) MOD size == front
-// Underflow: rear == front
-
-// This queue implementation is broken, I need to fix this
-
-import java.util.Arrays;
-
-class Queue	{
-	public int [] arr;
+public class Queue<T> {
 	
-	// capacity represents the last index at which element can be enqueued.
-	// So for a queue of at-most 5 elements, capacity would be 4, and size
-	// would be 5
-	public int capacity;
-	public int front;
-	public int rear;
-
-	Queue(int size) {
-		this.arr = new int[size];
-		this.capacity = size - 1;
-		this.front = this.rear = 0; 
+	private T [] arr;
+	
+	private int max = 5;
+	
+	private int head = -1;
+	
+	private int tail = 0;
+	
+	@SuppressWarnings("unchecked")
+	public Queue() {
+		arr = (T []) new Object[max];
 	}
 
-	public void enqueue(int num)	{
-		if (rear + 1 % (capacity + 1) == front) {
-			System.err.println("QUEUE OVERFLOW");
-			return;
-		}
-
-		arr[rear] = num;
-		if (rear == capacity) {
-			rear = 0;
-		} else {
-			rear++;
-		}		
+	@SuppressWarnings("unchecked")
+	public Queue(int max) {
+		this.max = max;
+		arr = (T []) new Object[max];
 	}
 
-	public int dequeue()	{
-		if (rear == front) {
-			System.err.println("QUEUE UNDERFLOW");
-			return Integer.MIN_VALUE;
-		}
+	public boolean isFull() {
+		return head == tail;
+	}
 
-		int num = arr[front];
-		if (front == capacity) {
-			front = 0;
-		} else {
-			front++;
+	public boolean isEmpty() {
+		return head == -1;
+	}
+
+	public void enqueue(T obj) throws Exception {
+		
+		if (isFull()) {
+			throw new Exception("Queue is full");
 		}
 		
-		return num;
+		arr[tail] = obj;
+		
+		if (head == -1) {
+			head = tail;
+		}
+		
+		tail = (tail + 1) % max;
 	}
 
-	@Override
-	public String toString()	{
-		return Arrays.toString(this.arr);
+	public T dequeue() throws Exception {
+		
+		if (isEmpty()) {
+			throw new Exception("Queue is empty");
+		}
+		
+		T obj = arr[head];
+		head = (head + 1) % max;
+		
+		if (head == tail) {
+			head = -1;
+		}
+
+		return obj;
 	}
 }

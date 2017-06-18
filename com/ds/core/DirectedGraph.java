@@ -1,13 +1,13 @@
 package com.ds.core;
 
-// A directed graph implementation using Adjacency List representation
-
 import java.util.*;
 import java.util.Map.Entry;
 
 public class DirectedGraph	{
+	
 	// Inner class to represent a Vertex
 	class Vertex	{
+		
 		public String name;
 		
 		// Required for BFS and DFS

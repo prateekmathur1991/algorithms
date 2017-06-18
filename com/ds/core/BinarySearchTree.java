@@ -1,27 +1,22 @@
 package com.ds.core;
 
-public class BinarySearchTree {
+public class BinarySearchTree<T extends Comparable<T>> {
 	
 	// Inner class to represent a Node
 	public class Node {
 		
-		public int key;
+		public T key;
 		public Node left;
 		public Node right;
-	
-		Node()	{
-			this.key = 0;
-			left = right = null;
-		}
 
-		Node(int key)	{
+		Node(T key)	{
 			this.key = key;
 			left = right = null;
 		}
 
 		@Override
 		public String toString() {
-			return Integer.toString(this.key);
+			return key == null ? "NULL" : key.toString();
 		}
 	}
 
@@ -29,26 +24,26 @@ public class BinarySearchTree {
 	private Node root;
 
 	public BinarySearchTree() {
-		this.root = null;
+		root = null;
 	}
 
 	public String printRoot() {
-		return this.root == null ? "EMPTY" : Integer.toString(this.root.key);
+		return root == null ? "EMPTY" : root.toString();
 	}
 
 	// Inserts a node in the BinarySearchTree
-	public void insert(int key) {
-		this.root = insertIntoBST(this.root, key);
+	public void insert(T key) {
+		this.root = insertIntoBST(root, key);
 	}
 
-	private Node insertIntoBST(Node root, int key)	{
+	private Node insertIntoBST(Node root, T key)	{
 		if (null == root) {
 			// No node present. Create a node and return it
 			root = new Node(key);
 			return root;
 		}
 
-		if (key <= root.key)	{
+		if (key.compareTo(root.key) < 0)	{
 			root.left = insertIntoBST(root.left, key);
 		} else {
 			root.right = insertIntoBST(root.right, key);
@@ -59,7 +54,7 @@ public class BinarySearchTree {
 	}
 
 	public void inorder()	{
-		inorder(this.root);
+		inorder(root);
 	}
 	
 	private void inorder(Node root)	{
@@ -70,35 +65,34 @@ public class BinarySearchTree {
 		}
 	}
 
-	public String search(int key)	{
-		Node getNode = searchNode(this.root, key);
-		return getNode == null ? "Not Found" : getNode.toString();
+	public Node search(T key)	{
+		return searchNode(this.root, key);
 	}
 
-	private Node searchNode(Node root, int key)	{
+	private Node searchNode(Node root, T key)	{
 		if (null == root || root.key == key) {
 			return root;
 		}
 
-		if (key < root.key)	{
+		if (key.compareTo(root.key) == 0)	{
 			return searchNode(root.left, key);	
 		} else {
 			return searchNode(root.right, key);
 		}
 	}
 
-	public void delete(int key) {
-		this.root = deleteKey(this.root, key);
+	public void delete(T key) {
+		root = deleteKey(this.root, key);
 	}
 
-	private Node deleteKey(Node root, int key)	{
+	private Node deleteKey(Node root, T key)	{
 		if (null == root) {
 			return root;
 		}
 
-		if (key < root.key)	{
+		if (key.compareTo(root.key) < 0)	{
 			root.left = deleteKey(root.left, key);
-		} else if (key > root.key) {
+		} else if (key.compareTo(root.key) > 0) {
 			root.right = deleteKey(root.right, key);
 		} else {
 			// This is the node to be deleted, as it has its
@@ -123,8 +117,8 @@ public class BinarySearchTree {
 		return root;
 	}
 
-	private int minValue(Node root)	{
-		int min = root.key;
+	private T minValue(Node root)	{
+		T min = root.key;
 		while (null != root.left) {
 			min = root.left.key;
 			root = root.left;

@@ -1,7 +1,5 @@
 package com.ds.core;
 
-// A doubly linked list implementation using a sentinel
-
 public class DoublyLinkedList<T> {
 	
 	private class Node {

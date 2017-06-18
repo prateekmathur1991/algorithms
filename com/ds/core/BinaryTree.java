@@ -1,25 +1,22 @@
 package com.ds.core;
 
-public class BinaryTree {
+public class BinaryTree<T extends Comparable<T>> {
+	
 	// Inner class to represent a Node
 	public class Node {
-		public int key;
+		
+		public T key;
 		public Node left;
 		public Node right;
-	
-		Node()	{
-			this.key = 0;
-			left = right = null;
-		}
 
-		Node(int key)	{
+		Node(T key)	{
 			this.key = key;
 			left = right = null;
 		}
 
 		@Override
 		public String toString() {
-			return Integer.toString(this.key);
+			return key == null ? "NULL" : key.toString();
 		}
 	}
 
@@ -31,15 +28,15 @@ public class BinaryTree {
 	}
 
 	public String printRoot() {
-		return this.root == null ? "EMPTY" : Integer.toString(this.root.key);
+		return this.root == null ? "EMPTY" : root.key.toString();
 	}
 
 	// Inserts a node in the BinaryTree
-	public void insert(int key) {
+	public void insert(T key) {
 		this.root = insertIntoBST(this.root, key);
 	}
 
-	private Node insertIntoBST(Node root, int key)	{
+	private Node insertIntoBST(Node root, T key)	{
 		if (null == root) {
 			// No node present. Create a node and return it
 			root = new Node(key);
@@ -68,12 +65,12 @@ public class BinaryTree {
 		}
 	}
 
-	public String search(int key)	{
+	public String search(T key)	{
 		Node getNode = searchNode(this.root, key);
 		return getNode == null ? "Not Found" : getNode.toString();
 	}
 
-	private Node searchNode(Node root, int key)	{
+	private Node searchNode(Node root, T key)	{
 		if (null == root || root.key == key) {
 			return root;
 		}
@@ -90,11 +87,11 @@ public class BinaryTree {
 		return result;
 	}
 
-	public void delete(int key) {
+	public void delete(T key) {
 		this.root = deleteKey(this.root, key);
 	}
 
-	private Node deleteKey(Node root, int key)	{
+	private Node deleteKey(Node root, T key)	{
 		if (root.key == key) {
 			if (root.left == null) {
 				root = root.right;

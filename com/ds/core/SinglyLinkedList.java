@@ -1,6 +1,7 @@
 package com.ds.core;
 
-public class SinglyLinkedList	{
+public class SinglyLinkedList<T> {
+
 	// Inner class to represent a node
 	class Node	{
 		public int num;

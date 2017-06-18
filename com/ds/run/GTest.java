@@ -1,10 +1,10 @@
 package com.ds.run;
 
-import com.ds.core.Graph;
+import com.ds.core.UndirectedGraph;
 
 public class GTest	{
 	public static void main(String [] args)	{
-		Graph graph = new Graph();
+		UndirectedGraph graph = new UndirectedGraph();
 		
 		graph.addVertex("r");
 		graph.addVertex("s");

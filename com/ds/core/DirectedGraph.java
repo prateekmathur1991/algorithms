@@ -1,11 +1,11 @@
 package com.ds.core;
 
-// An undirected graph implementation using Adjacency List representation
+// A directed graph implementation using Adjacency List representation
 
 import java.util.*;
 import java.util.Map.Entry;
 
-public class Graph	{
+public class DirectedGraph	{
 	// Inner class to represent a Vertex
 	class Vertex	{
 		public String name;
@@ -41,7 +41,7 @@ public class Graph	{
 	// LinkedList of Vertices, for topological sort
 	java.util.LinkedList<Vertex> verticesList;
 	
-	public Graph()	{
+	public DirectedGraph()	{
 		adjList = new HashMap<Vertex, HashSet<Vertex>>();
 		allVertices = new HashMap<String, Vertex>();
 		vertices = 0;
@@ -89,7 +89,6 @@ public class Graph	{
 
 		
 		adjList.get(vf).add(vt);
-		adjList.get(vt).add(vf);
 		edges++;
 	}
 
@@ -261,6 +260,11 @@ public class Graph	{
 		}
 	}
 
+	public void topologicalSort()	{
+		DFS(true);
+		System.out.println(Arrays.toString(verticesList.toArray(new Vertex[0])));
+	}
+	
 	// This method is a simplified version of DFS, and I
 		// find it easier to implement and use
 		public void dfs(String root)	{	

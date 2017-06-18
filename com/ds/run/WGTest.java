@@ -1,12 +1,12 @@
 package com.ds.run;
 
-import com.ds.core.WGraph;
+import com.ds.core.UndirectedWeightedGraph;
 
 public class WGTest	{
 	
 	public static void main(String [] args)	{
 		
-		WGraph wgraph = new WGraph();
+		UndirectedWeightedGraph wgraph = new UndirectedWeightedGraph();
 		
 		wgraph.addVertex("A");
 		wgraph.addVertex("B");

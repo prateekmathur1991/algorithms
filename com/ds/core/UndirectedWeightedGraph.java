@@ -5,7 +5,7 @@ package com.ds.core;
 import java.util.*;
 import java.util.Map.Entry;
 
-public class WGraph	{
+public class UndirectedWeightedGraph	{
 	// Inner class to represent a Vertex
 	private class Vertex	{
 		public String name;
@@ -56,7 +56,7 @@ public class WGraph	{
 	int vertices;
 	int edges;
 	
-	public WGraph()	{
+	public UndirectedWeightedGraph()	{
 		adjList = new HashMap<Vertex, HashMap<Vertex, Integer>>();
 		allVertices = new HashMap<String, Vertex>();
 		allEdges = new ArrayList<Edge>();

@@ -1,12 +1,12 @@
 package com.ds.run;
 
-import com.ds.core.DGraph;
+import com.ds.core.DirectedGraph;
 
 // Java program to test a graph
 
 public class DGTest	{
 	public static void main(String [] args)	{
-		DGraph graph = new DGraph();
+		DirectedGraph graph = new DirectedGraph();
 		
 		graph.addVertex("r");
 		graph.addVertex("s");

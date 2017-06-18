@@ -1,6 +1,6 @@
 package com.ds.core;
 
-public class LinkedList	{
+public class SinglyLinkedList	{
 	// Inner class to represent a node
 	class Node	{
 		public int num;
@@ -30,7 +30,7 @@ public class LinkedList	{
 	// Global pointer to start
 	Node start;
 
-	public LinkedList()	{
+	public SinglyLinkedList()	{
 		start = null;
 	}
 

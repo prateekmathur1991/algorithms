@@ -1,12 +1,12 @@
 package com.ds.run;
 
-import com.ds.core.LinkedList;
+import com.ds.core.SinglyLinkedList;
 
 public class LTest	{
 	
 	public static void main(String [] args)	{
 		
-		LinkedList linkedList = new LinkedList();
+		SinglyLinkedList linkedList = new SinglyLinkedList();
 		
 		linkedList.add(10);
 		linkedList.add(15);

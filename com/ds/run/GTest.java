@@ -1,11 +1,10 @@
-package core;
-// Prateek Mathur
+package com.ds.run;
 
-// Java program to test a graph
+import com.ds.core.Graph;
 
-public class DGTest	{
+public class GTest	{
 	public static void main(String [] args)	{
-		DGraph graph = new DGraph();
+		Graph graph = new Graph();
 		
 		graph.addVertex("r");
 		graph.addVertex("s");
@@ -27,19 +26,6 @@ public class DGTest	{
 		graph.addEdge("u", "y");
 		graph.addEdge("x", "y");
 
-		/* System.out.println(graph.hasEdge("A", "B"));
-		System.out.println(graph.hasEdge("A", "C"));
-		System.out.println(graph.hasEdge("A", "H"));
-		System.out.println(graph.hasEdge("A", "G"));
-
-		System.out.println(graph.vertices + " " + graph.edges);
-
-		graph.printAdjList();
-		graph.printBFS("r");
-		graph.printShortestPath("r", "x");
-
-		graph.printDFS(); */
-
-		graph.topologicalSort();
+		graph.printDFS();
 	}
 }

@@ -44,7 +44,7 @@ public class DGraph	{
 	// LinkedList of Vertices, for topological sort
 	java.util.LinkedList<Vertex> verticesList;
 	
-	DGraph()	{
+	public DGraph()	{
 		adjList = new HashMap<Vertex, HashSet<Vertex>>();
 		allVertices = new HashMap<String, Vertex>();
 		vertices = 0;

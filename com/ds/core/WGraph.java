@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 // Prateek Mathur
 
 // An undirected weighted graph implementation using Adjacency List representation
@@ -57,7 +57,7 @@ public class WGraph	{
 	int vertices;
 	int edges;
 	
-	WGraph()	{
+	public WGraph()	{
 		adjList = new HashMap<Vertex, HashMap<Vertex, Integer>>();
 		allVertices = new HashMap<String, Vertex>();
 		allEdges = new ArrayList<Edge>();

@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 
 // A doubly linked list implementation using a sentinel
 

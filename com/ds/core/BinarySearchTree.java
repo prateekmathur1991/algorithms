@@ -1,9 +1,9 @@
-package core;
+package com.ds.core;
 // Prateek Mathur
 
-// A Java implementation of a Binary Tree
+// A Java implementation of a Binary Search Tree
 
-public class BinaryTree {
+public class BinarySearchTree {
 	// Inner class to represent a Node
 	public class Node {
 		public int key;
@@ -26,10 +26,10 @@ public class BinaryTree {
 		}
 	}
 
-	// Root of the BinaryTree
+	// Root of the BinarySearchTree
 	private Node root;
 
-	public BinaryTree() {
+	public BinarySearchTree() {
 		this.root = null;
 	}
 
@@ -37,7 +37,7 @@ public class BinaryTree {
 		return this.root == null ? "EMPTY" : Integer.toString(this.root.key);
 	}
 
-	// Inserts a node in the BinaryTree
+	// Inserts a node in the BinarySearchTree
 	public void insert(int key) {
 		this.root = insertIntoBST(this.root, key);
 	}
@@ -49,7 +49,7 @@ public class BinaryTree {
 			return root;
 		}
 
-		if (null == root.left)	{
+		if (key <= root.key)	{
 			root.left = insertIntoBST(root.left, key);
 		} else {
 			root.right = insertIntoBST(root.right, key);
@@ -81,16 +81,11 @@ public class BinaryTree {
 			return root;
 		}
 
-		Node result = null;
-		if (null != root.left)	{
-			result = searchNode(root.left, key);
+		if (key < root.key)	{
+			return searchNode(root.left, key);	
+		} else {
+			return searchNode(root.right, key);
 		}
-		
-		if (null == result) {
-			result = searchNode(root.right, key);
-		}
-		
-		return result;
 	}
 
 	public void delete(int key) {
@@ -98,25 +93,44 @@ public class BinaryTree {
 	}
 
 	private Node deleteKey(Node root, int key)	{
-		if (root.key == key) {
-			if (root.left == null) {
-				root = root.right;
-			} else {
-				Node temp = root.left;
-				while (null != temp.right)	{
-					temp = temp.right;
-				}
-				
-				root.key = temp.key;
-				root.left = deleteKey(root.left, root.key);
-			}
-			
-		} else if (searchNode(root.left, key) != null)	{
-			root.left = deleteKey(root.left, key);
-		} else {
-			root.right = deleteKey(root.right, key);
+		if (null == root) {
+			return root;
 		}
-		
+
+		if (key < root.key)	{
+			root.left = deleteKey(root.left, key);
+		} else if (key > root.key) {
+			root.right = deleteKey(root.right, key);
+		} else {
+			// This is the node to be deleted, as it has its
+			// key equal to the root
+
+			// If the node has only 1 child, return the other present chlid.
+			// If the node has no children, null will be returned, which will destory the relation 
+			// of this node with its parent, thereby deleting it from the tree
+			if (null == root.left) {
+				return root.right;
+			} else if (null == root.right) {
+				return root.left;
+			}
+
+			// A child with 2 elements
+			// Find the inorder successor of this node, (which is the minimum value in the right
+			// sub-tree), set this node to the min value, and delete the inorder successor
+			root.key = minValue(root.right);
+			root.right = deleteKey(root.right, root.key);  
+		}
+
 		return root;
+	}
+
+	private int minValue(Node root)	{
+		int min = root.key;
+		while (null != root.left) {
+			min = root.left.key;
+			root = root.left;
+		}
+
+		return min;
 	}
 }

@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 // Prateek Mathur
 
 // Given a list of numbers, find the kth

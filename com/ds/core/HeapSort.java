@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 // Prateek Mathur
 
 // Java code to create a heap and perform heap sort on it

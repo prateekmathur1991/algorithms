@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;

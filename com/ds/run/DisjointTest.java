@@ -1,10 +1,11 @@
-package core;
-// Prateek Mathur
+package com.ds.run;
 
-// Java program to test disjoint sets
+import com.ds.core.DisjointSet;
 
-public class DisjointTest	{	
+public class DisjointTest {
+	
 	public static void main(String [] args)	{
+		
 		DisjointSet<Integer> dsets = new DisjointSet<Integer>();
 		
 		dsets.makeSet(30);
@@ -42,11 +43,5 @@ public class DisjointTest	{
 		dsets.viewAllSets();
 
 		System.out.println();
-
-		// System.out.println(dsets.findSet(90));
-
-		/* System.out.println(dsets.findSet(25));
-		System.out.println(dsets.findSet(50));
-		System.out.println(dsets.findSet(90)); */
 	}	
 }

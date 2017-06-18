@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 // Prateek Mathur
 
 // Java implementation for Quick Sort (using last element as pivot)

@@ -1,10 +1,11 @@
-package core;
-// Prateek Mathur
+package com.ds.run;
 
-// Java code to test a Binary Search Tree
+import com.ds.core.BinarySearchTree;
 
 public class BTest	{
+	
 	public static void main(String [] args)	{
+		
 		BinarySearchTree tree = new BinarySearchTree();
 		int [] nums = {10, 12, 78, 2, 33, 17, 45, 31};
 		

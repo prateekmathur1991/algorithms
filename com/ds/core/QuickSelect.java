@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 import java.util.Random;
  
 public class QuickSelect {

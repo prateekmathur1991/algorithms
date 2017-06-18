@@ -7,7 +7,7 @@ package ctci;
 import java.util.*;
 import java.util.Map.Entry;
 
-import core.DisjointSet;
+import com.ds.core.DisjointSet;
 
 public class WGraph	{
 	// Inner class to represent a Vertex

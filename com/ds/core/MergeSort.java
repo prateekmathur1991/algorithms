@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 // Prateek Mathur
 
 // Merge Sort Implementation in Java

@@ -1,11 +1,12 @@
-package core;
-// Prateek Mathur
+package com.ds.run;
+
+import com.ds.core.DGraph;
 
 // Java program to test a graph
 
-public class GTest	{
+public class DGTest	{
 	public static void main(String [] args)	{
-		Graph graph = new Graph();
+		DGraph graph = new DGraph();
 		
 		graph.addVertex("r");
 		graph.addVertex("s");
@@ -36,10 +37,10 @@ public class GTest	{
 
 		graph.printAdjList();
 		graph.printBFS("r");
-		graph.printShortestPath("r", "x"); */
+		graph.printShortestPath("r", "x");
 
-		graph.printDFS();
+		graph.printDFS(); */
 
-		// graph.topologicalSort();
+		graph.topologicalSort();
 	}
 }

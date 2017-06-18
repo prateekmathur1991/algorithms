@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 
 public class Stack<T> {
 	

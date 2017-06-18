@@ -1,8 +1,4 @@
-package core;
-
-// Prateek Mathur
-
-// Java implementation of a Singly Linked List
+package com.ds.core;
 
 public class LinkedList	{
 	// Inner class to represent a node

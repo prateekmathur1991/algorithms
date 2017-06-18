@@ -1,10 +1,11 @@
-package core;
-// Prateek Mathur
+package com.ds.run;
 
-// Java program to test a weighted graph
+import com.ds.core.WGraph;
 
 public class WGTest	{
+	
 	public static void main(String [] args)	{
+		
 		WGraph wgraph = new WGraph();
 		
 		wgraph.addVertex("A");

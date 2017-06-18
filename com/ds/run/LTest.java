@@ -1,10 +1,11 @@
-package core;
-// Prateek Mathur
+package com.ds.run;
 
-// Java program to test a linked list
+import com.ds.core.LinkedList;
 
 public class LTest	{
+	
 	public static void main(String [] args)	{
+		
 		LinkedList linkedList = new LinkedList();
 		
 		linkedList.add(10);

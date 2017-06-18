@@ -1,4 +1,4 @@
-package core;
+package com.ds.core;
 // Prateek Mathur
 
 // A Disjoint-Set Data Structure Implementation in Java

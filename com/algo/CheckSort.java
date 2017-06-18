@@ -1,5 +1,4 @@
-package com.ds.core;
-// Prateek Mathur
+package com.algo;
 
 // A Super Lame Experiment
 // Given a list of numbers (array), check if the list is sorted

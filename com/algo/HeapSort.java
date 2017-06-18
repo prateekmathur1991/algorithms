@@ -1,4 +1,4 @@
-package com.ds.core;
+package com.algo;
 // Prateek Mathur
 
 // Java code to create a heap and perform heap sort on it

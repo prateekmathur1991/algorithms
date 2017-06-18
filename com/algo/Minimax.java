@@ -1,4 +1,5 @@
-package com.ds.core;
+package com.algo;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;

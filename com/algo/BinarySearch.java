@@ -1,7 +1,4 @@
-package com.ds.core;
-// Prateek Mathur
-
-// Java program to implement Binary Search
+package com.algo;
 
 import java.util.Arrays;
 

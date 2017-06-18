@@ -1,5 +1,4 @@
 package com.ds.core;
-// Prateek Mathur
 
 // A directed graph implementation using Adjacency List representation
 

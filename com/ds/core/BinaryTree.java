@@ -1,7 +1,4 @@
 package com.ds.core;
-// Prateek Mathur
-
-// A Java implementation of a Binary Tree
 
 public class BinaryTree {
 	// Inner class to represent a Node

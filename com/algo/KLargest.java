@@ -1,5 +1,4 @@
-package com.ds.core;
-// Prateek Mathur
+package com.algo;
 
 // Given a list of numbers, find the kth
 // largest number.

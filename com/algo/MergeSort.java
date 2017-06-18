@@ -1,4 +1,4 @@
-package com.ds.core;
+package com.algo;
 // Prateek Mathur
 
 // Merge Sort Implementation in Java

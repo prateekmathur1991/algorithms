@@ -1,7 +1,4 @@
-package com.ds.core;
-// Prateek Mathur
-
-// A Program to bubble sort an array
+package com.algo;
 
 import java.util.Arrays;
 

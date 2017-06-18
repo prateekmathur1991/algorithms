@@ -1,11 +1,10 @@
 package com.ds.core;
-// Prateek Mathur
-
-// A Java implementation of a Binary Search Tree
 
 public class BinarySearchTree {
+	
 	// Inner class to represent a Node
 	public class Node {
+		
 		public int key;
 		public Node left;
 		public Node right;

@@ -1,5 +1,4 @@
 package com.ds.core;
-// Prateek Mathur
 
 // An undirected weighted graph implementation using Adjacency List representation
 

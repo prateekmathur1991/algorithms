@@ -1,7 +1,4 @@
-package com.ds.core;
-// Prateek Mathur
-
-// Java implementation for Quick Sort (using last element as pivot)
+package com.algo;
 
 import java.util.Arrays;
 

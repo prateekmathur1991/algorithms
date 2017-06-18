@@ -1,10 +1,8 @@
-// Prateek Mathur
-
-// This data structure uses multiple stacks to hold 
-// data into. Whenever the current stack gets full, it
-// creates and allocates a new stack and saves data in it.
-
 package com.ds.core;
+
+//This data structure uses multiple stacks to hold 
+//data into. Whenever the current stack gets full, it
+//creates and allocates a new stack and saves data in it.
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;

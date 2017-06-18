@@ -1,7 +1,4 @@
 package com.ds.core;
-// Prateek Mathur
-
-// A Disjoint-Set Data Structure Implementation in Java
 
 // Disjoint Sets need to support 3 operations
 // 1. MakeSet()

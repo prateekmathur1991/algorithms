@@ -4,11 +4,13 @@
 // data into. Whenever the current stack gets full, it
 // creates and allocates a new stack and saves data in it.
 
-package ctci;
+package com.ds.core;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
+
+import com.ds.core.LinkedStack;
 
 public class SetOfStacks<T>	{
 	List<LinkedStack<T>> stacks;

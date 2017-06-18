@@ -1,4 +1,4 @@
-package ctci;
+package com.ds.core;
 
 public class LinkedQueue<T> {
 	private static class QueueNode<T> {

@@ -1,4 +1,4 @@
-package ctci;
+package com.ds.core;
 
 public class LinkedStack<T>	{
 	private static class StackNode<T>	{

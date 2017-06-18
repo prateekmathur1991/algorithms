@@ -55,6 +55,30 @@ public class DoublyLinkedList<T> {
 		node.setPrevious(SENTINEL);
 	}
 	
+	public T find(T obj) {
+		
+		Node node = findNode(obj);
+		return node == SENTINEL ? null : node.getItem();
+	}
+	
+	public void delete(T obj) {
+		
+		Node node = findNode(obj);
+		if (node == SENTINEL) {
+			throw new RuntimeException("Value does not exists");
+		}
+	}
+	
+	private Node findNode(T obj) {
+		
+		Node current = SENTINEL.getNext();
+		while (current != SENTINEL || !current.getItem().equals(obj)) {
+			current = current.getNext();
+		}
+		
+		return current;
+	}
+	
 	public String printList() {
 		
 		StringBuilder builder = new StringBuilder();

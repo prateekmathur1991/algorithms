@@ -1,12 +1,14 @@
-package core;
+package run;
 // Prateek Mathur
+
+import graph.UndirectedGraph;
 
 // Java program to test a graph
 
-public class GTest	{
-	public static void main(String [] args)	{
-		Graph graph = new Graph();
-		
+public class GTest {
+	public static void main(String[] args) {
+		UndirectedGraph graph = new UndirectedGraph();
+
 		graph.addVertex("r");
 		graph.addVertex("s");
 		graph.addVertex("t");
@@ -27,16 +29,17 @@ public class GTest	{
 		graph.addEdge("u", "y");
 		graph.addEdge("x", "y");
 
-		/* System.out.println(graph.hasEdge("A", "B"));
-		System.out.println(graph.hasEdge("A", "C"));
-		System.out.println(graph.hasEdge("A", "H"));
-		System.out.println(graph.hasEdge("A", "G"));
-
-		System.out.println(graph.vertices + " " + graph.edges);
-
-		graph.printAdjList();
-		graph.printBFS("r");
-		graph.printShortestPath("r", "x"); */
+		/*
+		 * System.out.println(graph.hasEdge("A", "B"));
+		 * System.out.println(graph.hasEdge("A", "C"));
+		 * System.out.println(graph.hasEdge("A", "H"));
+		 * System.out.println(graph.hasEdge("A", "G"));
+		 * 
+		 * System.out.println(graph.vertices + " " + graph.edges);
+		 * 
+		 * graph.printAdjList(); graph.printBFS("r");
+		 * graph.printShortestPath("r", "x");
+		 */
 
 		graph.printDFS();
 

@@ -1,4 +1,4 @@
-package core;
+package sorting;
 // Prateek Mathur
 
 // A Program to bubble sort an array

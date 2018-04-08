@@ -1,44 +1,37 @@
 package core;
-// Prateek Mathur
 
-// Java implementation of a Stack
+public class Stack<T> {
 
-public class Stack	{
-	private int top;
-	private int [] stack;
+	private T[] arr;
+	private int top = -1;
 
-	Stack() {
-		this.top = -1;
-		stack = new int [10];	
+	@SuppressWarnings("unchecked")
+	public Stack() {
+		arr = (T[]) new Object[10];
 	}
 
-	Stack(int size)	{
-		this.top = -1;
-		stack = new int [size];
+	@SuppressWarnings("unchecked")
+	public Stack(int size) {
+		arr = (T[]) new Object[size];
 	}
 
-	public void push(int num) {
-		if (this.top == stack.length - 1) {
-			System.err.println("STACK OVERFLOW");
-			return;
+	public void push(T data) throws Exception {
+		if (top == arr.length - 1) {
+			throw new Exception("STACKOVERFLOW");
 		}
 
-		stack[++this.top] = num;
+		arr[++top] = data;
 	}
 
-	public int pop() {
-		if (this.top == - 1) {
-			System.err.println("STACK UNDERFLOW");
-			return -1;
+	public T pop() throws Exception {
+		if (top < 0) {
+			throw new Exception("STACK UNDERFLOW");
 		}
 
-		return stack[this.top--];
+		return arr[top--];
 	}
 
-	public void printStack()	{
-		int i = this.top;
-		while (i != -1) {
-			System.out.print(stack[i--] + ", ");
-		}
+	public boolean isEmpty() {
+		return top == -1;
 	}
 }

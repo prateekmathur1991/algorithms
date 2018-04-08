@@ -1,4 +1,4 @@
-package core;
+package sorting;
 // Prateek Mathur
 
 // Java implementation for Quick Sort (using last element as pivot)

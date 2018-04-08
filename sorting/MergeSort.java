@@ -1,4 +1,4 @@
-package core;
+package sorting;
 // Prateek Mathur
 
 // Merge Sort Implementation in Java

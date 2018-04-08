@@ -1,12 +1,14 @@
-package core;
+package run;
 // Prateek Mathur
+
+import core.LinkedList;
 
 // Java program to test a linked list
 
-public class LTest	{
-	public static void main(String [] args)	{
+public class LTest {
+	public static void main(String[] args) {
 		LinkedList linkedList = new LinkedList();
-		
+
 		linkedList.add(10);
 		linkedList.add(15);
 		linkedList.add(2);
@@ -23,14 +25,14 @@ public class LTest	{
 		linkedList.printList();
 
 		System.out.println(linkedList.findMiddle());
-	
-		/* System.out.println(linkedList.search(20));
-		System.out.println(linkedList.search(15));
 
-		linkedList.delete(9);
-		linkedList.printList();
-
-		linkedList.delete(9);
-		linkedList.printList(); */
+		/*
+		 * System.out.println(linkedList.search(20));
+		 * System.out.println(linkedList.search(15));
+		 * 
+		 * linkedList.delete(9); linkedList.printList();
+		 * 
+		 * linkedList.delete(9); linkedList.printList();
+		 */
 	}
 }

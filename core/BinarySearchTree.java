@@ -1,136 +1,270 @@
 package core;
-// Prateek Mathur
 
-// A Java implementation of a Binary Search Tree
+import java.util.Collection;
+import java.util.function.Consumer;
 
-public class BinarySearchTree {
-	// Inner class to represent a Node
-	public class Node {
-		public int key;
-		public Node left;
-		public Node right;
-	
-		Node()	{
-			this.key = 0;
-			left = right = null;
-		}
+public class BinarySearchTree<T extends Comparable<T>> {
 
-		Node(int key)	{
-			this.key = key;
-			left = right = null;
-		}
+	private class Node<N> {
 
-		@Override
-		public String toString() {
-			return Integer.toString(this.key);
+		private N data;
+
+		private Node<N> parent;
+		private Node<N> left;
+		private Node<N> right;
+
+		Node(N data) {
+			this.data = data;
+			this.parent = null;
+			this.left = null;
+			this.right = null;
 		}
 	}
 
-	// Root of the BinarySearchTree
-	private Node root;
+	private Node<T> root;
 
-	BinarySearchTree() {
+	public BinarySearchTree() {
 		this.root = null;
 	}
 
-	public String printRoot() {
-		return this.root == null ? "EMPTY" : Integer.toString(this.root.key);
+	public Node<T> get(T data) {
+		return treeSearch(this.root, data);
 	}
 
-	// Inserts a node in the BinarySearchTree
-	public void insert(int key) {
-		this.root = insertIntoBST(this.root, key);
-	}
+	private Node<T> treeSearch(Node<T> root, T data) {
 
-	private Node insertIntoBST(Node root, int key)	{
-		if (null == root) {
-			// No node present. Create a node and return it
-			root = new Node(key);
+		if (root != null && root.data.equals(data)) {
 			return root;
 		}
 
-		if (key <= root.key)	{
-			root.left = insertIntoBST(root.left, key);
+		if (data.compareTo(root.data) <= 0) {
+			return treeSearch(root.left, data);
 		} else {
-			root.right = insertIntoBST(root.right, key);
-		}
-
-		// Return the root
-		return root;
-	}
-
-	public void inorder()	{
-		inorder(this.root);
-	}
-	
-	private void inorder(Node root)	{
-		if (null != root) {
-			inorder(root.left);
-			System.out.print(root.key + ", ");
-			inorder(root.right);
+			return treeSearch(root.right, data);
 		}
 	}
 
-	public String search(int key)	{
-		Node getNode = searchNode(this.root, key);
-		return getNode == null ? "Not Found" : getNode.toString();
+	public void inOrder(Consumer<T> consumer) {
+		treeInOrder(this.root, consumer);
 	}
 
-	private Node searchNode(Node root, int key)	{
-		if (null == root || root.key == key) {
-			return root;
-		}
+	private void treeInOrder(Node<T> root, Consumer<T> consumer) {
 
-		if (key < root.key)	{
-			return searchNode(root.left, key);	
-		} else {
-			return searchNode(root.right, key);
+		if (root != null) {
+			treeInOrder(root.left, consumer);
+			consumer.accept(root.data);
+			treeInOrder(root.right, consumer);
 		}
 	}
 
-	public void delete(int key) {
-		this.root = deleteKey(this.root, key);
+	public void preOrder(Consumer<T> consumer) {
+		treePreOrder(this.root, consumer);
 	}
 
-	private Node deleteKey(Node root, int key)	{
-		if (null == root) {
-			return root;
+	private void treePreOrder(Node<T> root, Consumer<T> consumer) {
+
+		if (root != null) {
+			consumer.accept(root.data);
+			treeInOrder(root.left, consumer);
+			treeInOrder(root.right, consumer);
 		}
-
-		if (key < root.key)	{
-			root.left = deleteKey(root.left, key);
-		} else if (key > root.key) {
-			root.right = deleteKey(root.right, key);
-		} else {
-			// This is the node to be deleted, as it has its
-			// key equal to the root
-
-			// If the node has only 1 child, return the other present chlid.
-			// If the node has no children, null will be returned, which will destory the relation 
-			// of this node with its parent, thereby deleting it from the tree
-			if (null == root.left) {
-				return root.right;
-			} else if (null == root.right) {
-				return root.left;
-			}
-
-			// A child with 2 elements
-			// Find the inorder successor of this node, (which is the minimum value in the right
-			// sub-tree), set this node to the min value, and delete the inorder successor
-			root.key = minValue(root.right);
-			root.right = deleteKey(root.right, root.key);  
-		}
-
-		return root;
 	}
 
-	private int minValue(Node root)	{
-		int min = root.key;
-		while (null != root.left) {
-			min = root.left.key;
+	public void postOrder(Consumer<T> consumer) {
+		treePostOrder(this.root, consumer);
+	}
+
+	private void treePostOrder(Node<T> root, Consumer<T> consumer) {
+
+		if (root != null) {
+			treeInOrder(root.left, consumer);
+			treeInOrder(root.right, consumer);
+			consumer.accept(root.data);
+		}
+	}
+
+	public T minimum() {
+
+		return treeMinimum(root).data;
+	}
+
+	private Node<T> treeMinimum(Node<T> root) {
+
+		while (root.left != null) {
 			root = root.left;
 		}
 
-		return min;
+		return root;
+	}
+
+	public T maximum() {
+
+		return treeMaximum(root).data;
+	}
+
+	private Node<T> treeMaximum(Node<T> root) {
+
+		while (root.right != null) {
+			root = root.right;
+		}
+
+		return root;
+	}
+
+	public void add(T data) {
+
+		treeInsert(root, new Node<>(data));
+	}
+
+	public void addAll(Collection<T> collection) {
+
+		collection.forEach(data -> {
+			treeInsert(root, new Node<>(data));
+		});
+	}
+
+	public void addAll(T[] items) {
+
+		for (T data : items) {
+			treeInsert(root, new Node<>(data));
+		}
+	}
+
+	private void treeInsert(Node<T> root, Node<T> z) {
+
+		Node<T> y = null;
+		Node<T> x = root;
+
+		while (x != null) {
+
+			y = x;
+			if (z.data.compareTo(x.data) <= 0) {
+				x = x.left;
+			} else {
+				x = x.right;
+			}
+		}
+
+		z.parent = y;
+		if (y == null) {
+			this.root = z; // Tree was empty
+		} else if (z.data.compareTo(y.data) <= 0) {
+			y.left = z;
+		} else {
+			y.right = z;
+		}
+	}
+
+	public T successor(T data) {
+
+		Node<T> node = treeSearch(root, data);
+
+		if (node == null) {
+			return null;
+		}
+
+		return treeSuccessor(node).data;
+	}
+
+	private Node<T> treeSuccessor(Node<T> x) {
+
+		if (x.right != null) {
+			return treeMinimum(x.right);
+		}
+
+		Node<T> y = x.parent;
+		while (y != null && x == y.right) {
+			x = y;
+			y = y.parent;
+		}
+
+		return y;
+	}
+
+	public T predecessor(T data) {
+
+		Node<T> node = treeSearch(root, data);
+
+		if (node == null) {
+			return null;
+		}
+
+		return treePredecessor(node).data;
+	}
+
+	private Node<T> treePredecessor(Node<T> x) {
+
+		if (x.left != null) {
+			return treeMaximum(x.left);
+		}
+
+		Node<T> y = x.parent;
+		while (y != null && x == y.left) {
+			x = y;
+			y = y.parent;
+		}
+
+		return y;
+	}
+
+	public void delete(T data) {
+
+		Node<T> z = treeSearch(root, data);
+
+		if (z == null) {
+			return;
+		}
+
+		treeDelete(root, z);
+	}
+
+	private void treeDelete(Node<T> root, Node<T> z) {
+
+		if (z.left == null) {
+			transplant(root, z, z.right);
+		} else if (z.right == null) {
+			transplant(root, z, z.left);
+		} else {
+
+			Node<T> y = treeMinimum(z.right);
+			if (y.parent != z) {
+				transplant(root, y, y.right);
+				y.right = z.right;
+				y.right.parent = y;
+			}
+
+			transplant(root, z, y);
+			y.left = z.left;
+			y.left.parent = y;
+		}
+	}
+
+	private void transplant(Node<T> root, Node<T> u, Node<T> v) {
+
+		if (u.parent == null) {
+			root = v;
+		} else if (u == u.parent.left) {
+			u.parent.left = v;
+		} else {
+			u.parent.right = v;
+		}
+
+		if (v != null) {
+			v.parent = u.parent;
+		}
+	}
+
+	public int getHeight() {
+
+		return treeHeight(root);
+	}
+
+	private int treeHeight(Node<T> root) {
+
+		if (root == null) {
+			return 0;
+		}
+
+		return 1 + Math.max(treeHeight(root.left), treeHeight(root.right));
 	}
 }

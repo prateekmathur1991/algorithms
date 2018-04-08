@@ -1,12 +1,14 @@
-package core;
+package run;
 // Prateek Mathur
+
+import graph.UndirectedWeightedGraph;
 
 // Java program to test a weighted graph
 
-public class WGTest	{
-	public static void main(String [] args)	{
-		WGraph wgraph = new WGraph();
-		
+public class WGTest {
+	public static void main(String[] args) {
+		UndirectedWeightedGraph wgraph = new UndirectedWeightedGraph();
+
 		wgraph.addVertex("A");
 		wgraph.addVertex("B");
 		wgraph.addVertex("C");
@@ -30,16 +32,18 @@ public class WGTest	{
 		wgraph.addEdge("C", "F", 4);
 		wgraph.addEdge("D", "F", 14);
 
-		/* System.out.println(wgraph.hasEdge("A", "B"));
-		System.out.println(wgraph.hasEdge("A", "C"));
-		System.out.println(wgraph.hasEdge("A", "H"));
-		System.out.println(wgraph.hasEdge("A", "G"));
-
-		wgraph.printAdjList();
-
-		System.out.println(wgraph.vertices + " " + wgraph.edges);
-
-		wgraph.makeKruskalMST(); */
+		/*
+		 * System.out.println(wgraph.hasEdge("A", "B"));
+		 * System.out.println(wgraph.hasEdge("A", "C"));
+		 * System.out.println(wgraph.hasEdge("A", "H"));
+		 * System.out.println(wgraph.hasEdge("A", "G"));
+		 * 
+		 * wgraph.printAdjList();
+		 * 
+		 * System.out.println(wgraph.vertices + " " + wgraph.edges);
+		 * 
+		 * wgraph.makeKruskalMST();
+		 */
 
 		wgraph.makePrimMST("A");
 	}

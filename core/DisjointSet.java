@@ -7,21 +7,23 @@ package core;
 // 1. MakeSet()
 // 2. FindSet()
 // 3. Union()
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-import java.util.*;
-
-public class DisjointSet<T>	{
+public class DisjointSet<T> {
 	Set<LinkedHashSet<T>> allSets;
 
-	public DisjointSet()	{
+	public DisjointSet() {
 		allSets = new HashSet<LinkedHashSet<T>>();
 	}
 
-	public void makeSet(T t)	{
+	public void makeSet(T t) {
 		Iterator<LinkedHashSet<T>> itr = allSets.iterator();
-		while (itr.hasNext())	{
+		while (itr.hasNext()) {
 			LinkedHashSet<T> set = itr.next();
-			if (set.contains(t))	{
+			if (set.contains(t)) {
 				return;
 			}
 		}
@@ -32,11 +34,11 @@ public class DisjointSet<T>	{
 		allSets.add(set);
 	}
 
-	public T findSet(T t)	{		
+	public T findSet(T t) {
 		Iterator<LinkedHashSet<T>> itr = allSets.iterator();
-		while (itr.hasNext())	{
+		while (itr.hasNext()) {
 			LinkedHashSet<T> set = itr.next();
-			if (set.contains(t))	{
+			if (set.contains(t)) {
 				return (T) set.iterator().next();
 			}
 		}
@@ -44,33 +46,33 @@ public class DisjointSet<T>	{
 		return null;
 	}
 
-	public void union(T t1, T t2)	{
+	public void union(T t1, T t2) {
 		LinkedHashSet<T> set1 = null, set2 = null;
-		
+
 		Iterator<LinkedHashSet<T>> itr = allSets.iterator();
-		while (itr.hasNext())	{
+		while (itr.hasNext()) {
 			LinkedHashSet<T> set = itr.next();
-			if (set.contains(t1))	{
+			if (set.contains(t1)) {
 				set1 = (LinkedHashSet<T>) set;
-			} else if (set.contains(t2))	{
+			} else if (set.contains(t2)) {
 				set2 = (LinkedHashSet<T>) set;
 			}
 		}
 
-		if (null != set1)	{
+		if (null != set1) {
 			LinkedHashSet<T> set = new LinkedHashSet<T>(set1);
 			set.addAll(set2);
 
 			allSets.add(set);
 
 			allSets.remove(set1);
-			if (null != set2)	{
+			if (null != set2) {
 				allSets.remove(set2);
 			}
 		}
 	}
 
-	public void viewAllSets()	{
+	public void viewAllSets() {
 		System.out.println(this.allSets);
 	}
 }

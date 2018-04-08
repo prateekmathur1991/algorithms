@@ -6,9 +6,9 @@ package core;
 
 import java.util.Arrays;
 
-public class KLargest	{
-	public static void main(String [] args)	{
-		int [] nums = {2, 16, 7, 13, 10, 15};
+public class KLargest {
+	public static void main(String[] args) {
+		int[] nums = { 2, 16, 7, 13, 10, 15 };
 		int k = 3;
 		System.out.println(Arrays.toString(nums));
 
@@ -17,11 +17,11 @@ public class KLargest	{
 		System.out.println(k + " " + klargest);
 	}
 
-	public static int findKLargest(int [] nums, int k)	{
+	public static int findKLargest(int[] nums, int k) {
 		int low = 0;
 		int high = nums.length - 1;
 
-		while (low <= high)	{
+		while (low <= high) {
 			int p = partition(nums, low, high);
 			if (p == k) {
 				return nums[p];
@@ -31,16 +31,16 @@ public class KLargest	{
 				high = p - 1;
 			}
 		}
-		
+
 		return 0;
 	}
 
-	public static int partition(int [] nums, int low, int high)	{
+	public static int partition(int[] nums, int low, int high) {
 		int pivot = nums[high];
 		int lowestIndex = low - 1;
 
-		for (int i = low; i <= (high - 1); i++)	{
-			if (nums[i] <= pivot)	{
+		for (int i = low; i <= (high - 1); i++) {
+			if (nums[i] <= pivot) {
 				lowestIndex = lowestIndex + 1;
 				int temp = nums[lowestIndex];
 				nums[lowestIndex] = nums[i];
@@ -53,6 +53,6 @@ public class KLargest	{
 		nums[high] = temp;
 
 		return lowestIndex + 1;
-		
+
 	}
 }

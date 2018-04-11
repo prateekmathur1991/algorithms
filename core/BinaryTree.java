@@ -1,118 +1,180 @@
 package core;
 
-public class BinaryTree {
-	// Inner class to represent a Node
-	public class Node {
-		public int key;
-		public Node left;
-		public Node right;
+import java.util.Collection;
+import java.util.function.Consumer;
 
-		Node() {
-			this.key = 0;
-			left = right = null;
-		}
+public class BinaryTree<T extends Comparable<T>> {
 
-		Node(int key) {
-			this.key = key;
-			left = right = null;
-		}
+	private class Node<N> {
 
-		@Override
-		public String toString() {
-			return Integer.toString(this.key);
+		private N data;
+
+		private Node<N> parent;
+		private Node<N> left;
+		private Node<N> right;
+
+		Node(N data) {
+			this.data = data;
+			this.parent = null;
+			this.left = null;
+			this.right = null;
 		}
 	}
 
-	// Root of the BinaryTree
-	private Node root;
+	private Node<T> root;
 
 	public BinaryTree() {
 		this.root = null;
 	}
 
-	public String printRoot() {
-		return this.root == null ? "EMPTY" : Integer.toString(this.root.key);
+	public Node<T> get(T data) {
+		return treeSearch(this.root, data);
 	}
 
-	public void insert(int key) {
-		this.root = insertIntoBST(this.root, key);
+	private Node<T> treeSearch(Node<T> root, T data) {
+
+		// TODO 
+		return null;
 	}
 
-	private Node insertIntoBST(Node root, int key) {
-		if (null == root) {
-			// No node present. Create a node and return it
-			root = new Node(key);
-			return root;
+	public void inOrder(Consumer<T> consumer) {
+		treeInOrder(this.root, consumer);
+	}
+
+	private void treeInOrder(Node<T> root, Consumer<T> consumer) {
+
+		if (root != null) {
+			treeInOrder(root.left, consumer);
+			consumer.accept(root.data);
+			treeInOrder(root.right, consumer);
+		}
+	}
+
+	public void preOrder(Consumer<T> consumer) {
+		treePreOrder(this.root, consumer);
+	}
+
+	private void treePreOrder(Node<T> root, Consumer<T> consumer) {
+
+		if (root != null) {
+			consumer.accept(root.data);
+			treePreOrder(root.left, consumer);
+			treePreOrder(root.right, consumer);
+		}
+	}
+
+	public void postOrder(Consumer<T> consumer) {
+		treePostOrder(this.root, consumer);
+	}
+
+	private void treePostOrder(Node<T> root, Consumer<T> consumer) {
+
+		if (root != null) {
+			treePostOrder(root.left, consumer);
+			treePostOrder(root.right, consumer);
+			consumer.accept(root.data);
+		}
+	}
+
+	public void add(T data) {
+
+		treeInsert(root, new Node<>(data));
+	}
+
+	public void addAll(Collection<T> collection) {
+
+		collection.forEach(data -> treeInsert(root, new Node<>(data)));
+	}
+
+	public void addAll(T[] items) {
+
+		for (T data : items) {
+			treeInsert(root, new Node<>(data));
+		}
+	}
+
+	private void treeInsert(Node<T> root, Node<T> z) {
+
+		// TODO
+	}
+
+	public T successor(T data) {
+
+		Node<T> node = treeSearch(root, data);
+
+		if (node == null) {
+			return null;
 		}
 
-		if (null == root.left) {
-			root.left = insertIntoBST(root.left, key);
+		return treeSuccessor(node).data;
+	}
+
+	private Node<T> treeSuccessor(Node<T> x) {
+
+		// TODO
+		return null;
+	}
+
+	public T predecessor(T data) {
+
+		Node<T> node = treeSearch(root, data);
+
+		if (node == null) {
+			return null;
+		}
+
+		return treePredecessor(node).data;
+	}
+
+	private Node<T> treePredecessor(Node<T> x) {
+
+		// TODO
+				return null;
+	}
+
+	public void delete(T data) {
+
+		Node<T> z = treeSearch(root, data);
+
+		if (z == null) {
+			return;
+		}
+
+		treeDelete(root, z);
+	}
+
+	private void treeDelete(Node<T> root, Node<T> z) {
+
+		// TODO
+	}
+
+	@SuppressWarnings("unused")
+	private void transplant(Node<T> root, Node<T> u, Node<T> v) {
+
+		if (u.parent == null) {
+			root = v;
+		} else if (u == u.parent.left) {
+			u.parent.left = v;
 		} else {
-			root.right = insertIntoBST(root.right, key);
+			u.parent.right = v;
 		}
 
-		// Return the root
-		return root;
-	}
-
-	public void inorder() {
-		inorder(this.root);
-	}
-
-	private void inorder(Node root) {
-		if (null != root) {
-			inorder(root.left);
-			System.out.print(root.key + ", ");
-			inorder(root.right);
+		if (v != null) {
+			v.parent = u.parent;
 		}
 	}
 
-	public String search(int key) {
-		Node getNode = searchNode(this.root, key);
-		return getNode == null ? "Not Found" : getNode.toString();
+	public int getHeight() {
+
+		return treeHeight(root);
 	}
 
-	private Node searchNode(Node root, int key) {
-		if (null == root || root.key == key) {
-			return root;
+	private int treeHeight(Node<T> root) {
+
+		if (root == null) {
+			return 0;
 		}
 
-		Node result = null;
-		if (null != root.left) {
-			result = searchNode(root.left, key);
-		}
-
-		if (null == result) {
-			result = searchNode(root.right, key);
-		}
-
-		return result;
-	}
-
-	public void delete(int key) {
-		this.root = deleteKey(this.root, key);
-	}
-
-	private Node deleteKey(Node root, int key) {
-		if (root.key == key) {
-			if (root.left == null) {
-				root = root.right;
-			} else {
-				Node temp = root.left;
-				while (null != temp.right) {
-					temp = temp.right;
-				}
-
-				root.key = temp.key;
-				root.left = deleteKey(root.left, root.key);
-			}
-
-		} else if (searchNode(root.left, key) != null) {
-			root.left = deleteKey(root.left, key);
-		} else {
-			root.right = deleteKey(root.right, key);
-		}
-
-		return root;
+		return 1 + Math.max(treeHeight(root.left), treeHeight(root.right));
 	}
 }

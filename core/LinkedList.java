@@ -1,72 +1,53 @@
 package core;
 
-// Prateek Mathur
+public class LinkedList<T> {
+	
+	private static final class Node<T> {
+		
+		private T data;
+		private Node<T> next;
 
-// Java implementation of a Singly Linked List
-
-public class LinkedList {
-	// Inner class to represent a node
-	class Node {
-		public int num;
-		public Node next;
-
-		Node() {
-			this.num = 0;
+		Node(T num) {
+			this.data = num;
 			this.next = null;
-		}
-
-		Node(int num) {
-			this.num = num;
-			this.next = null;
-		}
-
-		@Override
-		public String toString() {
-			StringBuilder builder = new StringBuilder();
-			builder.append(this.num);
-			if (null != this.next) {
-				builder.append("--->").append(this.next.num);
-			}
-			return builder.toString();
 		}
 	}
 
 	// Global pointer to start
-	Node start;
+	Node<T> start;
 
 	public LinkedList() {
 		start = null;
 	}
 
-	public void add(int key) {
-		Node node = new Node(key);
+	public void add(T key) {
+		Node<T> node = new Node<>(key);
 
 		if (null == start) {
 			start = node;
 			return;
 		}
 
-		Node current = start;
+		Node<T> current = start;
 		while (null != current.next) {
 			current = current.next;
 		}
 
 		current.next = node;
 	}
-
-	public String search(int key) {
-		Node getNode = searchNode(key);
-		return getNode == null ? "NOT FOUND" : getNode.toString();
+	
+	public boolean contains(T key) {
+		return searchNode(key) != null;
 	}
 
-	private Node searchNode(int key) {
+	private Node<T> searchNode(T key) {
 		if (null == start) {
-			return null;
+			throw new RuntimeException("LIST EMPTY");
 		}
 
-		Node current = start;
+		Node<T> current = start;
 		while (null != current) {
-			if (key == current.num) {
+			if (key.equals(current.data)) {
 				return current;
 			}
 
@@ -76,50 +57,49 @@ public class LinkedList {
 		return null;
 	}
 
-	public void insertAfter(int value, int key) {
+	public void insertAfter(T value, T key) {
 		if (null == start) {
-			System.err.println("LIST EMPTY");
-			return;
+			throw new RuntimeException("LIST EMPTY");
 		}
 
-		Node getNode = searchNode(value);
+		Node<T> getNode = searchNode(value);
 		if (getNode == null) {
 			return;
 		}
 
-		Node node = new Node(key);
+		Node<T> node = new Node<>(key);
 
-		Node temp = getNode.next;
+		Node<T> temp = getNode.next;
 		getNode.next = node;
 		node.next = temp;
 	}
 
-	public void insertBefore(int value, int key) {
+	public void insertBefore(T value, T key) {
 		if (null == start) {
-			System.err.println("LIST EMPTY");
-			return;
+			throw new RuntimeException("LIST EMPTY");
 		}
 
 		this.start = insertRecordBefore(value, key);
 	}
 
-	private Node insertRecordBefore(int value, int key) {
-		Node node = new Node(key);
+	private Node<T> insertRecordBefore(T value, T key) {
+		
+		Node<T> node = new Node<>(key);
 
-		if (value == this.start.num) {
-			Node temp = this.start;
+		if (value.equals(this.start.data)) {
+			Node<T> temp = this.start;
 			this.start = node;
 			node.next = temp;
 		} else {
-			Node current = start;
-			Node prev = null;
+			Node<T> current = start;
+			Node<T> prev = null;
 
-			while (null != current.next && current.num != value) {
+			while (null != current.next && !current.data.equals(value)) {
 				prev = current;
 				current = current.next;
 			}
 
-			if (current.num == value) {
+			if (current.data.equals(value)) {
 				prev.next = node;
 				node.next = current;
 			}
@@ -128,28 +108,29 @@ public class LinkedList {
 		return this.start;
 	}
 
-	public void delete(int key) {
+	public void delete(T key) {
+		
 		if (null == start) {
-			System.err.println("LIST EMPTY");
-			return;
+			throw new RuntimeException("LIST EMPTY");
 		}
 
 		this.start = deleteRecord(key);
 	}
 
-	private Node deleteRecord(int key) {
-		if (key == this.start.num) {
+	private Node<T> deleteRecord(T key) {
+		
+		if (key.equals(this.start.data)) {
 			start = start.next;
 		} else {
-			Node current = start;
-			Node prev = null;
+			Node<T> current = start;
+			Node<T> prev = null;
 
-			while (null != current.next && current.num != key) {
+			while (null != current.next && !current.data.equals(key)) {
 				prev = current;
 				current = current.next;
 			}
 
-			if (current.num == key) {
+			if (current.data.equals(key)) {
 				prev.next = current.next;
 				current = null;
 			}
@@ -159,69 +140,43 @@ public class LinkedList {
 	}
 
 	public void printList() {
+		
 		if (null == start) {
-			System.err.println("LIST EMPTY");
-			return;
+			throw new RuntimeException("LIST EMPTY");
 		}
 
-		Node current = start;
+		Node<T> current = start;
 		while (null != current) {
-			System.out.print(Integer.toString(current.num) + "--->");
+			System.out.print(String.valueOf(current.data) + "--->");
 			current = current.next;
 		}
 
 		System.out.println("END");
 	}
 
-	/*
-	 * public void removeDuplicates() { removeDups(start); }
-	 * 
-	 * private void removeDups(Node node) { HashSet<Integer> set = new
-	 * HashSet<Integer>(); Node prev = null;
-	 * 
-	 * while (null != node) { if (set.contains(node.num)) { prev.next =
-	 * node.next; } else { set.add(node.num); prev = node; }
-	 * 
-	 * node = node.next; } }
-	 * 
-	 * public int findKthToLast(int k) { Node n = kthToLast(start, k); return n
-	 * == null ? Integer.MIN_VALUE : n.num; }
-	 * 
-	 * private Node kthToLast(Node start, int k) { Node p1 = start; Node p2 =
-	 * start;
-	 * 
-	 * for (int i = 0; i < k; i++) { if (null == p1) { return null; }
-	 * 
-	 * p1 = p1.next; }
-	 * 
-	 * while (null != p1) { p1 = p1.next; p2 = p2.next; }
-	 * 
-	 * return p2; }
-	 */
-
 	public void printRecursively() {
 		traverse(start);
 	}
 
 	// Recursively traverses through the list and prints each element
-	private void traverse(Node node) {
+	private void traverse(Node<T> node) {
 		if (null == node.next) {
-			System.out.println(Integer.toString(node.num) + "--->END");
+			System.out.println(String.valueOf(node.data) + "--->END");
 			return;
 		} else {
-			System.out.print(Integer.toString(node.num) + "--->");
+			System.out.print(String.valueOf(node.data) + "--->");
 			traverse(node.next);
 		}
 	}
 
-	public int findMiddle() {
-		Node middle = findMiddle(this.start);
-		return middle.num;
+	public T findMiddle() {
+		Node<T> middle = findMiddle(this.start);
+		return middle.data;
 	}
 
-	private Node findMiddle(Node start) {
-		Node fastRunner = start;
-		Node slowRunner = start;
+	private Node<T> findMiddle(Node<T> start) {
+		Node<T> fastRunner = start;
+		Node<T> slowRunner = start;
 
 		while (fastRunner.next != null) {
 			fastRunner = fastRunner.next.next;

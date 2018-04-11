@@ -65,8 +65,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
 		if (root != null) {
 			consumer.accept(root.data);
-			treeInOrder(root.left, consumer);
-			treeInOrder(root.right, consumer);
+			treePreOrder(root.left, consumer);
+			treePreOrder(root.right, consumer);
 		}
 	}
 
@@ -77,8 +77,8 @@ public class BinarySearchTree<T extends Comparable<T>> {
 	private void treePostOrder(Node<T> root, Consumer<T> consumer) {
 
 		if (root != null) {
-			treeInOrder(root.left, consumer);
-			treeInOrder(root.right, consumer);
+			treePostOrder(root.left, consumer);
+			treePostOrder(root.right, consumer);
 			consumer.accept(root.data);
 		}
 	}
@@ -118,9 +118,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
 
 	public void addAll(Collection<T> collection) {
 
-		collection.forEach(data -> {
-			treeInsert(root, new Node<>(data));
-		});
+		collection.forEach(data -> treeInsert(root, new Node<>(data)));
 	}
 
 	public void addAll(T[] items) {

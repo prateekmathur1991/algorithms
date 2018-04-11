@@ -19,7 +19,7 @@ public class ArrayQueue<T> {
 	}
 
 	public boolean isEmpty() {
-		return front == -1 && rear == 1;
+		return front == -1 && rear == -1;
 	}
 
 	public boolean isFull() {

@@ -1,11 +1,13 @@
 package core;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.function.Consumer;
 
 public class BinaryTree<T extends Comparable<T>> {
 
-	private class Node<N> {
+	private static final class Node<N> {
 
 		private N data;
 
@@ -27,13 +29,13 @@ public class BinaryTree<T extends Comparable<T>> {
 		this.root = null;
 	}
 
-	public Node<T> get(T data) {
-		return treeSearch(this.root, data);
+	public boolean contains(T data) {
+		return treeSearch(this.root, data) != null;
 	}
 
 	private Node<T> treeSearch(Node<T> root, T data) {
 
-		// TODO 
+		// TODO
 		return null;
 	}
 
@@ -95,7 +97,36 @@ public class BinaryTree<T extends Comparable<T>> {
 
 	private void treeInsert(Node<T> root, Node<T> z) {
 
-		// TODO
+		if (root == null) {
+			this.root = z;
+			return;
+		}
+
+		Node<T> temp = root;
+
+		Queue<Node<T>> queue = new LinkedList<>();
+		queue.add(temp);
+
+		while (!queue.isEmpty()) {
+
+			temp = queue.remove();
+
+			if (temp.left == null) {
+				temp.left = z;
+				z.parent = temp;
+				break;
+			} else {
+				queue.add(temp.left);
+			}
+
+			if (temp.right == null) {
+				temp.right = z;
+				z.parent = temp;
+				break;
+			} else {
+				queue.add(temp.right);
+			}
+		}
 	}
 
 	public T successor(T data) {
@@ -129,7 +160,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	private Node<T> treePredecessor(Node<T> x) {
 
 		// TODO
-				return null;
+		return null;
 	}
 
 	public void delete(T data) {

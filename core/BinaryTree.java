@@ -29,13 +29,40 @@ public class BinaryTree<T> {
 		this.root = null;
 	}
 
-	public boolean contains(T data) {
-		return treeSearch(this.root, data) != null;
+	public boolean contains(T key) {
+
+		if (this.root == null) {
+			// Tree is empty
+			return false;
+		}
+
+		return treeSearch(this.root, key) != null;
 	}
 
-	private Node<T> treeSearch(Node<T> root, T data) {
+	private Node<T> treeSearch(Node<T> root, T key) {
 
-		// TODO
+		Queue<Node<T>> queue = new LinkedList<>();
+
+		Node<T> temp = root;
+		queue.add(temp);
+
+		while (!queue.isEmpty()) {
+
+			temp = queue.remove();
+
+			if (temp.data.equals(key)) {
+				return temp;
+			}
+
+			if (temp.left != null) {
+				queue.add(temp.left);
+			}
+
+			if (temp.right != null) {
+				queue.add(temp.right);
+			}
+		}
+
 		return null;
 	}
 
@@ -127,40 +154,6 @@ public class BinaryTree<T> {
 				queue.add(temp.right);
 			}
 		}
-	}
-
-	public T successor(T data) {
-
-		Node<T> node = treeSearch(root, data);
-
-		if (node == null) {
-			return null;
-		}
-
-		return treeSuccessor(node).data;
-	}
-
-	private Node<T> treeSuccessor(Node<T> x) {
-
-		// TODO
-		return null;
-	}
-
-	public T predecessor(T data) {
-
-		Node<T> node = treeSearch(root, data);
-
-		if (node == null) {
-			return null;
-		}
-
-		return treePredecessor(node).data;
-	}
-
-	private Node<T> treePredecessor(Node<T> x) {
-
-		// TODO
-		return null;
 	}
 
 	public void delete(T data) {

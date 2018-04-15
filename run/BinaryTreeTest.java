@@ -19,5 +19,8 @@ public class BinaryTreeTest {
 
 		integerBinaryTree.postOrder(t -> System.out.print(t.toString() + " "));
 		System.out.println();
+		
+		System.out.println(integerBinaryTree.contains(78));
+		System.out.println(integerBinaryTree.getHeight());
 	}
 }

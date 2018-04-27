@@ -1,204 +1,120 @@
 package core;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
-import java.util.function.Consumer;
+
+// Binary Tree
+
+// Should support - Insertion, Deletion, Traversal
 
 public class BinaryTree<T> {
 
-	private static final class Node<N> {
+	private final class Node {
 
-		private N data;
+		private T data;
+		private Node left;
+		private Node right;
 
-		private Node<N> parent;
-		private Node<N> left;
-		private Node<N> right;
-
-		Node(N data) {
+		Node(T data) {
 			this.data = data;
-			this.parent = null;
-			this.left = null;
-			this.right = null;
 		}
 	}
 
-	private Node<T> root;
+	private Node root;
 
-	public BinaryTree() {
-		this.root = null;
-	}
-
-	public boolean contains(T key) {
-
-		if (this.root == null) {
-			// Tree is empty
-			return false;
-		}
-
-		return treeSearch(this.root, key) != null;
-	}
-
-	private Node<T> treeSearch(Node<T> root, T key) {
-
-		Queue<Node<T>> queue = new LinkedList<>();
-
-		Node<T> temp = root;
-		queue.add(temp);
-
-		while (!queue.isEmpty()) {
-
-			temp = queue.remove();
-
-			if (temp.data.equals(key)) {
-				return temp;
-			}
-
-			if (temp.left != null) {
-				queue.add(temp.left);
-			}
-
-			if (temp.right != null) {
-				queue.add(temp.right);
-			}
-		}
-
-		return null;
-	}
-
-	public void inOrder(Consumer<T> consumer) {
-		treeInOrder(this.root, consumer);
-	}
-
-	private void treeInOrder(Node<T> root, Consumer<T> consumer) {
-
-		if (root != null) {
-			treeInOrder(root.left, consumer);
-			consumer.accept(root.data);
-			treeInOrder(root.right, consumer);
-		}
-	}
-
-	public void preOrder(Consumer<T> consumer) {
-		treePreOrder(this.root, consumer);
-	}
-
-	private void treePreOrder(Node<T> root, Consumer<T> consumer) {
-
-		if (root != null) {
-			consumer.accept(root.data);
-			treePreOrder(root.left, consumer);
-			treePreOrder(root.right, consumer);
-		}
-	}
-
-	public void postOrder(Consumer<T> consumer) {
-		treePostOrder(this.root, consumer);
-	}
-
-	private void treePostOrder(Node<T> root, Consumer<T> consumer) {
-
-		if (root != null) {
-			treePostOrder(root.left, consumer);
-			treePostOrder(root.right, consumer);
-			consumer.accept(root.data);
-		}
-	}
-
-	public void add(T data) {
-
-		treeInsert(root, new Node<>(data));
-	}
-
-	public void addAll(Collection<T> collection) {
-
-		collection.forEach(data -> treeInsert(root, new Node<>(data)));
-	}
-
-	public void addAll(T[] items) {
-
-		for (T data : items) {
-			treeInsert(root, new Node<>(data));
-		}
-	}
-
-	private void treeInsert(Node<T> root, Node<T> z) {
+	public void insert(T data) {
 
 		if (root == null) {
-			this.root = z;
+			root = new Node(data);
 			return;
 		}
 
-		Node<T> temp = root;
+		treeInsert(root, new Node(data));
+	}
 
-		Queue<Node<T>> queue = new LinkedList<>();
-		queue.add(temp);
+	private void treeInsert(Node root, Node newNode) {
 
-		while (!queue.isEmpty()) {
+		// Level Order Traversal
+		Queue<Node> nodesQueue = new LinkedList<>();
+		nodesQueue.add(root);
 
-			temp = queue.remove();
+		while (!nodesQueue.isEmpty()) {
 
-			if (temp.left == null) {
-				temp.left = z;
-				z.parent = temp;
-				break;
+			Node node = nodesQueue.remove();
+
+			if (node.left != null) {
+				nodesQueue.add(node.left);
 			} else {
-				queue.add(temp.left);
+				node.left = newNode;
+				break;
 			}
 
-			if (temp.right == null) {
-				temp.right = z;
-				z.parent = temp;
-				break;
+			if (node.right != null) {
+				nodesQueue.add(node.right);
 			} else {
-				queue.add(temp.right);
+				node.right = newNode;
+				break;
 			}
 		}
 	}
 
+	public boolean contains(T data) {
+		return treeSearch(data) != null;
+	}
+
+	private Node treeSearch(T data) {
+
+		if (root == null) {
+			return null;
+		}
+		
+		if (data == null) {
+			throw new NullPointerException();
+		}
+
+		// Level Order Traversal
+		Queue<Node> nodesQueue = new LinkedList<>();
+		nodesQueue.add(root);
+		
+		Node searchNode = null;
+
+		while (!nodesQueue.isEmpty()) {
+
+			Node node = nodesQueue.remove();
+			if (node.data.equals(data)) {
+				searchNode = node;
+			}
+
+			if (node.left != null) {
+				nodesQueue.add(node.left);
+			} else {
+				break;
+			}
+
+			if (node.right != null) {
+				nodesQueue.add(node.right);
+			} else {
+				break;
+			}
+		}
+		
+		return searchNode;	
+	}
+	
 	public void delete(T data) {
-
-		Node<T> z = treeSearch(root, data);
-
-		if (z == null) {
+		treeDelete(data);
+	}
+	
+	private void treeDelete(T data) {
+		
+		if (root == null) {
 			return;
 		}
-
-		treeDelete(root, z);
-	}
-
-	private void treeDelete(Node<T> root, Node<T> z) {
-
-		// TODO
-	}
-
-	@SuppressWarnings("unused")
-	private void transplant(Node<T> root, Node<T> u, Node<T> v) {
-
-		if (u.parent == null) {
-			root = v;
-		} else if (u == u.parent.left) {
-			u.parent.left = v;
-		} else {
-			u.parent.right = v;
-		}
-
-		if (v != null) {
-			v.parent = u.parent;
-		}
-	}
-
-	public int getHeight() {
-
-		return treeHeight(root);
-	}
-
-	private int treeHeight(Node<T> root) {
-
-		if (root == null) {
-			return 0;
-		}
-
-		return 1 + Math.max(treeHeight(root.left), treeHeight(root.right));
+		
+		// Find the deepest node
+		// Find the node to be deleted
+		// Replace node to be deleted's data with deepest's node data
+		
+		
 	}
 }
